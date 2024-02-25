@@ -20,3 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('employee', \App\Http\Controllers\EmployeeController::class);
+Route::resource('department', \App\Http\Controllers\DepartmentController::class);
+Route::resource('position', \App\Http\Controllers\PositionController::class);
+
+Route::resource('roles', \App\Http\Controllers\RoleController::class);
+Route::resource('permissions', \App\Http\Controllers\PermissionController::class);
