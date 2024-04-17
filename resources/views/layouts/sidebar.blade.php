@@ -18,6 +18,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('tt.index') }}" class="nav-link {{ Request::is('tt*') ? "active":'' }}">
+                        <i class="fa fa-sim-card"></i>
+                        <p>TT</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('employee.index') }}" class="nav-link {{ Request::is('employee*') ? "active":'' }}">
                         <i class="fa fa-users"></i>
                         <p>Сотрудник</p>

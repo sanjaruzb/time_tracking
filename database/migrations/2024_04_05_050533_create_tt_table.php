@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('tt', function (Blueprint $table) {
             $table->id();
-            $table->string("number");
-            $table->timestamp("auth_datetime");
-            $table->date("auth_date");
-            $table->time("auth_time");
-            $table->enum("track",[1,-1])->default(1);
-            $table->string("turn");
-            $table->string("turn_serial");
-            $table->string("name");
-            $table->string("card_number");
+            $table->string("number")->nullable();
+            $table->timestamp("auth_datetime")->nullable();
+            $table->date("auth_date")->nullable();
+            $table->time("auth_time")->nullable();
+            $table->tinyInteger("track")->default(1)->comment("1->вход -1->выход");
+            $table->string("turn")->nullable();
+            $table->string("turn_serial")->nullable();
+            $table->string("name")->nullable();
+            $table->string("card_number")->nullable();
             $table->timestamps();
         });
     }
