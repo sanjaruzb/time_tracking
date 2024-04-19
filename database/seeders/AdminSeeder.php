@@ -32,5 +32,12 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('123456'),
         ]);
         $user1->assignRole([$role->id]);
+
+        $user2 = User::create([
+            'name' => 'Alisher',
+            'email' => 'alisher@gmail.com',
+            'password' => Hash::make('654321'),
+        ]);
+        $user2->assignRole([$role->id]);
     }
 }
