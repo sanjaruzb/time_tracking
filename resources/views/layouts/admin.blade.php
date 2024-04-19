@@ -68,7 +68,17 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @yield('content')
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
     <!-- /.content-wrapper -->
 
