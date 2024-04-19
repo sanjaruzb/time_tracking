@@ -24,6 +24,9 @@ class Tt extends Model
 
     protected $table = 'tt';
 
+    static $kirish = 1;
+    static $chiqish = -1;
+
     protected $fillable = [
         'number',
         'auth_datetime',
