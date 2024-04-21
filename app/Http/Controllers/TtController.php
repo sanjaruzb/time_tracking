@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Imports\Report;
 use App\Models\Tt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+use Shuchkin\SimpleXLS;
 
 class TtController extends Controller
 {
@@ -34,31 +36,36 @@ class TtController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'excel' => 'required',
+            'excel' => 'required|file|mimes:xlsx',
         ]);
-        $datas = Excel::toArray(new Report(), $request->file('excel'));
 
-        foreach ($datas[0] as $d){
-            if (is_int((int)$d[0]) and (int)$d[0] > 0){
-                if (!empty($d[9])){
-                    Tt::create([
-                        'number' => substr($d[1],0,20),
-                        'name' => $d[2],
-                        'auth_date' => $d[6],
-                        'auth_time' => $d[9],
-                        'track' => 1,
-                    ]);
-                }
-                if (!empty($d[10])){
-                    Tt::create([
-                        'number' => substr($d[1],0,20),
-                        'name' => $d[2],
-                        'auth_date' => $d[6],
-                        'auth_time' => $d[10],
-                        'track' => -1,
-                    ]);
-                }
+        $file_name = date('Y_m_d_H_i_s') . rand(10000, 99999) . '.xlsx';
+
+        $request->file('excel')->move(storage_path('excel_files'), $file_name);
+
+        $array = Excel::toArray(new Report(), storage_path('excel_files\\' . $file_name));
+
+        foreach ($array[0] as $key => $a){
+            if($key != 0 and isset($a[10]) and (strlen($a[9]) == 8 and strlen($a[10]) == 8)){
+                $d = Tt::create([
+                    'number' => $a[1],
+                    'name' => $a[2],
+                    'auth_date' => $a[6],
+                    'auth_time' => $a[9],
+                    'track' => Tt::$kirish,
+                ]);
+
+                Tt::create([
+                    'number' => $a[1],
+                    'name' => $a[2],
+                    'auth_date' => $a[6],
+                    'auth_time' => $a[10],
+                    'track' => Tt::$chiqish,
+                ]);
             }
+
+
+
         }
         return redirect()->route('tt.index')->with('success', 'Excel created successfully');
     }
