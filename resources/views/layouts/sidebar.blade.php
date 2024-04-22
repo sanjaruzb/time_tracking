@@ -10,19 +10,23 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? "active":'' }}">
-                        <i class="fa fa-home"></i>
-                        <p>Главная</p>
-                    </a>
-                </li>
+                @can('home-index')
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? "active":'' }}">
+                            <i class="fa fa-home"></i>
+                            <p>Главная</p>
+                        </a>
+                    </li>
+                @endcan
 
-                <li class="nav-item">
-                    <a href="{{ route('tt.index') }}" class="nav-link {{ Request::is('tt*') ? "active":'' }}">
-                        <i class="fa fa-sim-card"></i>
-                        <p>TT</p>
-                    </a>
-                </li>
+                @can('tt-index')
+                    <li class="nav-item">
+                        <a href="{{ route('tt.index') }}" class="nav-link {{ Request::is('tt*') ? "active":'' }}">
+                            <i class="fa fa-sim-card"></i>
+                            <p>Учет времени</p>
+                        </a>
+                    </li>
+                @endcan
 
                 @can('employee-index')
                     <li class="nav-item">

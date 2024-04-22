@@ -14,9 +14,9 @@ class TtController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tts = Tt::latest()->paginate(40);
+        $tts = Tt::filter($request->all())->latest()->paginate(40);
         return view('tt.index', [
             'tts' => $tts
         ]);
@@ -60,27 +60,28 @@ class TtController extends Controller
                     'track' => Tt::$chiqish,
                 ]);
             }
-
-
-
         }
-        return redirect()->route('tt.index')->with('success', 'Excel created successfully');
+        return redirect()->route('tt.index')->with('success', 'Excel успешно создан');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Tt $tt)
     {
-        //
+        return view('tt.show',[
+            'tt' => $tt,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Tt $tt)
     {
-        //
+        return view('tt.edit',[
+            'tt' => $tt,
+        ]);
     }
 
     /**
@@ -88,14 +89,15 @@ class TtController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Tt $tt)
     {
-        //
+        $tt->delete();
+        return redirect()->route('tt.index')->with('success','Учетом времени удален успешно');
     }
 }

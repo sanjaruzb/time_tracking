@@ -38,4 +38,24 @@ class Tt extends Model
         'name',
         'card_number',
     ];
+
+    public function scopeFilter($query, array $filters)
+    {
+        if (isset($filters['number'])) {
+            $query->where('number', $filters['number']);
+        }
+        if (isset($filters['name'])) {
+            $query->where('name', 'like', "%{$filters['name']}%");
+        }
+        if (isset($filters['auth_date'])) {
+            $query->where('auth_date', $filters['auth_date']);
+        }
+        if (isset($filters['auth_time'])) {
+            $query->where('auth_time', $filters['auth_time']);
+        }
+        if (isset($filters['track'])) {
+            $query->where('track', $filters['track']);
+        }
+        return $query;
+    }
 }

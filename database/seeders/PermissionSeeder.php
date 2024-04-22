@@ -16,6 +16,7 @@ class PermissionSeeder extends Seeder
         $permissionList = [
             // home page
             ['name' => 'home-show'],
+            ['name' => 'home-index'],
             // permission page
             ['name' => 'permission-show'],
             ['name' => 'permission-index'],
@@ -73,6 +74,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'tt-index'],
             ['name' => 'tt-filter'],
             ['name' => 'tt-show'],
+            ['name' => 'tt-create'],
             ['name' => 'tt-store'],
             ['name' => 'tt-edit'],
             ['name' => 'tt-update'],
