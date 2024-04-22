@@ -20,4 +20,15 @@ class Position extends Model
         'name',
         'status',
     ];
+
+    public function scopeFilter($query, array $filters)
+    {
+        if (isset($filters['name'])) {
+            $query->where('name', 'like', "%{$filters['name']}%");
+        }
+        if (isset($filters['status'])) {
+            $query->where('status', 'like', "%{$filters['status']}%");
+        }
+        return $query;
+    }
 }

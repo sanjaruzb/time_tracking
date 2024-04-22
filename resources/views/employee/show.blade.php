@@ -1,13 +1,18 @@
 @extends('layouts.admin')
+
 @section('content')
-    <br>
+
     <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table table-bordered">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Показать сотрудник</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="dataTable" class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg" user="grid" aria-describedby="dataTable_info">
+                            <thead>
                                 <tr>
                                     <th>Ф.И.О</th>
                                     <td>{!! $user->fio !!}</td>
@@ -20,12 +25,16 @@
 
                                 <tr>
                                     <th>Должность</th>
-                                    <td>@if(!empty($user->position)) {{ $user->position->name  }} @endif</td>
+                                    <td>@if(!empty($user->position))
+                                            {{ $user->position->name  }}
+                                        @endif</td>
                                 </tr>
 
                                 <tr>
                                     <th>цех/отдел</th>
-                                    <td>@if(!empty($user->department)) {{ $user->department->name  }} @endif</td>
+                                    <td>@if(!empty($user->department))
+                                            {{ $user->department->name  }}
+                                        @endif</td>
                                 </tr>
 
                                 <tr>
@@ -50,7 +59,7 @@
 
                                 <tr>
                                     <th>Дата рождения</th>
-                                    <td>{{ $user->birtdate }}</td>
+                                    <td>{{ $user->birthdate }}</td>
                                 </tr>
 
                                 <tr>
@@ -76,12 +85,17 @@
                                     <th>Семейное положение</th>
                                     <td>{{ $user->family_status }}</td>
                                 </tr>
-                            </table>
-                            <br>
-                        </div>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+            <!-- /.col -->
         </div>
+        <!-- /.row -->
     </section>
+    <!-- /.content -->
 @endsection

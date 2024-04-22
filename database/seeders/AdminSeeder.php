@@ -18,12 +18,14 @@ class AdminSeeder extends Seeder
     {
         $role = Role::where('name','Admin')->first();
         $user = User::create([
-            'name' => 'Shukrullo',
+            'firstname' => 'Shukrullo',
+            'lastname' => 'Fatulloyev',
             'email' => 'shukrullo@gmail.com',
             'password' => Hash::make('123456'),
         ]);
         $user1 = User::create([
-            'name' => 'Sanjar',
+            'firstname' => 'Sanjar',
+            'lastname' => 'Makhmudjanov',
             'email' => 'sanjar@gmail.com',
             'password' => Hash::make('123456'),
         ]);
@@ -31,7 +33,8 @@ class AdminSeeder extends Seeder
         $user1->assignRole([$role->id]);
 
         $user2 = User::create([
-            'name' => 'Alisher',
+            'firstname' => 'Alisher',
+            'lastname' => 'Alisherov',
             'email' => 'alisher@gmail.com',
             'password' => Hash::make('654321'),
         ]);

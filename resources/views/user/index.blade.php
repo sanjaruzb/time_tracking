@@ -7,17 +7,17 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Управление должность</h3>
+                        <h3 class="card-title">Управление пользователями</h3>
 
-                        @can('position-create')
-                            <a href="{{ route('position.create') }}" class="btn btn-success btn-sm float-right">
+                        @can('user-create')
+                            <a href="{{ route('user.create') }}" class="btn btn-success btn-sm float-right">
                                 <span class="fas fa-plus-circle"></span>
                                 Создавать
                             </a>
                         @endcan
 
-                        @can('position-filter')
-                            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#position_filter" style="margin-right: 5px">
+                        @can('user-filter')
+                            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#users_filter" style="margin-right: 5px">
                                 <span class="fas fa-filter"></span> Фильтр
                             </button>
                         @endcan
@@ -30,34 +30,42 @@
                                user="grid" aria-describedby="dataTable_info">
                             <thead>
                             <tr>
-                                <th>Название</th>
-                                <th>Статус</th>
+                                <th>Имя</th>
+                                <th>Фамилия</th>
+                                <th>Почта</th>
+                                <th>Роль</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($positions as $position)
+                            @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $position->name }}</td>
-                                    <td>{{ \App\Helpers\StatusHelper::getCommonStatus($position->status) }}</td>
+                                    <td>{{ $user->firstname }}</td>
+                                    <td>{{ $user->lastname }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>
+                                        @foreach($user->roles()->pluck('name') as $role)
+                                            <span class="badge badge-primary">{{ $role }} </span>
+                                        @endforeach
+                                    </td>
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            @can('position-show')
-                                                <a class="" href="{{ route('position.show',$position->id) }}"
+                                            @can('user-show')
+                                                <a class="" href="{{ route('user.show',$user->id) }}"
                                                    style="margin-right: 7px">
                                                     <span class="fa fa-eye"></span>
                                                 </a>
                                             @endcan
 
-                                            @can('position-edit')
-                                                <a class="" href="{{ route('position.edit',$position->id) }}"
+                                            @can('user-edit')
+                                                <a class="" href="{{ route('user.edit',$user->id) }}"
                                                    style="margin-right: 2px">
                                                     <span class="fa fa-edit" style="color: #562bb0"></span>
                                                 </a>
                                             @endcan
 
-                                            @can('position-destroy')
-                                                <form action="{{ route("position.destroy", $position->id) }}" method="POST">
+                                            @can('user-destroy')
+                                                <form action="{{ route("user.destroy", $user->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input name="_method" type="hidden" value="DELETE">
@@ -75,13 +83,13 @@
                             <tfooter>
                                 <tr>
                                     <td colspan="12">
-                                        {{ $positions->withQueryString()->links()   }}
+                                        {{ $users->withQueryString()->links()   }}
                                     </td>
                                 </tr>
                             </tfooter>
                         </table>
 
-                        <div class="modal fade" id="position_filter">
+                        <div class="modal fade" id="users_filter">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -91,27 +99,42 @@
                                         </button>
                                     </div>
                                     {!! Form::open(['method'=>'GET']) !!}
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Название:</strong>
-                                                    {!! Form::text('name', request()->get('name'), ['placeholder' => 'Название','maxlength'=> 100,'class' => 'form-control']) !!}
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <strong>Имя:</strong>
+                                                        {!! Form::text('firstname', request()->get('firstname'), ['placeholder' => 'Имя','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Статус:</strong>
-                                                    {!! Form::select('status', \App\Helpers\StatusHelper::$commonStatus,request()->get('status'), ['placeholder' => '','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <strong>Фамилия:</strong>
+                                                        {!! Form::text('lastname', request()->get('lastname'), ['placeholder' => 'Фамилия','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                    </div>
                                                 </div>
+
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <strong>Почта:</strong>
+                                                        {!! Form::text('email', request()->get('email'), ['placeholder' => 'Почта','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <strong>Роль:</strong>
+                                                        {!! Form::select('role_id',$roles ?? [], request()->get('role_id'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрывать</button>
-                                        <button type="submit" class="btn btn-primary">Фильтр</button>
-                                    </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрывать</button>
+                                            <button type="submit" class="btn btn-primary">Фильтр</button>
+                                        </div>
                                     {!! Form::close() !!}
                                 </div>
                                 <!-- /.modal-content -->

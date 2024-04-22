@@ -24,30 +24,36 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('employee.index') }}" class="nav-link {{ Request::is('employee*') ? "active":'' }}">
-                        <i class="fa fa-users"></i>
-                        <p>Сотрудник</p>
-                    </a>
-                </li>
+                @can('employee-index')
+                    <li class="nav-item">
+                        <a href="{{ route('employee.index') }}" class="nav-link {{ Request::is('employee*') ? "active":'' }}">
+                            <i class="fa fa-users"></i>
+                            <p>Сотрудник</p>
+                        </a>
+                    </li>
+                @endcan
 
-                <li class="nav-item">
-                    <a href="{{ route('department.index') }}" class="nav-link {{ Request::is('department*') ? "active":'' }}">
-                        <i class="fa fa-directions"></i>
-                        <p>Отделы</p>
-                    </a>
-                </li>
+                @can('department-index')
+                    <li class="nav-item">
+                        <a href="{{ route('department.index') }}" class="nav-link {{ Request::is('department*') ? "active":'' }}">
+                            <i class="fa fa-directions"></i>
+                            <p>Отделы</p>
+                        </a>
+                    </li>
+                @endcan
 
-                <li class="nav-item">
-                    <a href="{{ route('position.index') }}" class="nav-link {{ Request::is('position*') ? "active":'' }}">
-                        <i class="fa fa-poo-storm"></i>
-                        <p>Должность</p>
-                    </a>
-                </li>
+                @can('position-index')
+                    <li class="nav-item">
+                        <a href="{{ route('position.index') }}" class="nav-link {{ Request::is('position*') ? "active":'' }}">
+                            <i class="fa fa-poo-storm"></i>
+                            <p>Должность</p>
+                        </a>
+                    </li>
+                @endcan
 
 
-                <li class="nav-item {{ (Request::is('roles*') or Request::is('permissions*')) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ (Request::is('roles*') or Request::is('permissions*')) ? 'active' : '' }}">
+                <li class="nav-item {{ (Request::is('roles*') or Request::is('permissions*') or Request::is('user*')) ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ (Request::is('roles*') or Request::is('permissions*') or Request::is('user*')) ? 'active' : '' }}">
                         <i class="nav-icon fa fa-cog"></i>
                         <p>
                             Управление
@@ -55,24 +61,27 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Пользователями</p>
-                            </a>
-                        </li>
+                        @can('user-index')
+                            <li class="nav-item">
+                                <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Пользователями</p>
+                                </a>
+                            </li>
+                        @endcan
+
                         <li class="nav-item">
                             <a href="{{ route('roles.index') }}" class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Роли</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{--<li class="nav-item">
                             <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Разрешение</p>
                             </a>
-                        </li>
+                        </li>--}}
                     </ul>
                 </li>
             </ul>

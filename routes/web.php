@@ -28,3 +28,4 @@ Route::resource('position', \App\Http\Controllers\PositionController::class);
 
 Route::resource('roles', \App\Http\Controllers\RoleController::class);
 Route::resource('permissions', \App\Http\Controllers\PermissionController::class);
+Route::resource('user', \App\Http\Controllers\UserController::class);

@@ -19,7 +19,8 @@ class EmployeeSeeder extends Seeder
     {
         $datas = [
             [
-                'name' => 'Muxlisa',
+                'firstname' => 'Muxlisa',
+                'lastname' => 'Muxammadiyeva',
                 'email' => 'muxlisa@gmail.com',
                 'password' => '123456',
                 'fio' => 'Muxammadiyeva Muxlisa Erkinovna',
@@ -38,7 +39,8 @@ class EmployeeSeeder extends Seeder
                 "family_status" => "oilali",
             ],
             [
-                'name' => 'Aziz',
+                'firstname' => 'Aziz',
+                'lastname' => 'Shodiyev',
                 'email' => 'aziz@gmail.com',
                 'password' => '123456',
                 'fio' => 'Shodiyev Aziz Ismoilovich',

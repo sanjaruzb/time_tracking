@@ -7,10 +7,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Создать новую роль</h3>
+                        <h3 class="card-title">Создать новую oтдел</h3>
                     </div>
                     <div class="card-body">
-                        {!! Form::open(['route' => 'roles.store','method'=>'POST']) !!}
+                        {!! Form::open(['route' => 'department.store','method'=>'POST']) !!}
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
@@ -24,20 +24,23 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Разрешения:</strong>
-                                    <br/>
-                                    @foreach($permission as $value)
-                                        <label>{{ Form::checkbox('permission[]', $value->name, false, ['class' => '']) }}
-                                            {{ $value->name }}</label>
-                                        <br/>
-                                    @endforeach
-                                    @if($errors->has('permission'))
-                                        <span class="error invalid-feedback">{{ $errors->first('permission') }}</span>
+                                    <label for="code"><strong>Код:</strong></label>{!! Form::label('code',"*",['style'=>"color:red"]) !!}
+                                    {!! Form::text('code', null, ['autocomplete'=>'OFF','id'=>'code','placeholder' => 'Код','required'=>true,'class' => "form-control ".($errors->has('code') ? 'is-invalid' : '')]) !!}
+                                    @if($errors->has('code'))
+                                        <span class="error invalid-feedback">{{ $errors->first('code') }}</span>
                                     @endif
                                 </div>
                             </div>
 
-
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="status"><strong>Статус:</strong></label>{!! Form::label('status',"*",['style'=>"color:red"]) !!}
+                                    {!! Form::select('status', \App\Helpers\StatusHelper::$commonStatus,null, ['autocomplete'=>'OFF','id'=>'status','required'=>true,'class' => "form-control ".($errors->has('status') ? 'is-invalid' : '')]) !!}
+                                    @if($errors->has('status'))
+                                        <span class="error invalid-feedback">{{ $errors->first('status') }}</span>
+                                    @endif
+                                </div>
+                            </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                 <br>

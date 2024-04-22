@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Показать роль</h3>
+                        <h3 class="card-title">Показать oтдел</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -15,18 +15,19 @@
                             <thead>
                             <tr>
                                 <th>Название</th>
-                                <td>{{ $role->name }}</td>
+                                <td>{{ $department->name }}</td>
                             </tr>
+
                             <tr>
-                                <th>Разрешения</th>
-                                <td>
-                                    @if(!empty($rolePermissions))
-                                        @foreach($rolePermissions as $v)
-                                            {{ $v->name }}@if(!$loop->last),@endif
-                                        @endforeach
-                                    @endif
-                                </td>
+                                <th>Код</th>
+                                <td>{{ $department->code }}</td>
                             </tr>
+
+                            <tr>
+                                <th>Статус</th>
+                                <td>{{ \App\Helpers\StatusHelper::getCommonStatus($department->status) }}</td>
+                            </tr>
+
                             </thead>
                             <tbody>
 
