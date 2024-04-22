@@ -40,14 +40,11 @@ class TtController extends Controller
         ]);
 
         $file_name = date('Y_m_d_H_i_s') . rand(10000, 99999) . '.xlsx';
-
         $request->file('excel')->move(storage_path('excel_files'), $file_name);
-
         $array = Excel::toArray(new Report(), storage_path('excel_files\\' . $file_name));
-
         foreach ($array[0] as $key => $a){
             if($key != 0 and isset($a[10]) and (strlen($a[9]) == 8 and strlen($a[10]) == 8)){
-                $d = Tt::create([
+                Tt::create([
                     'number' => $a[1],
                     'name' => $a[2],
                     'auth_date' => $a[6],

@@ -22,9 +22,18 @@
                             </button>
                         @endcan
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body">
-                        <!-- Data table -->
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+
+                        @if ($message = Session::get('error'))
+                            <div class="alert alert-danger">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
                         <table id="dataTable"
                                class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg"
                                user="grid" aria-describedby="dataTable_info">
