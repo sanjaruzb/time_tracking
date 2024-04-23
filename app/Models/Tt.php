@@ -37,8 +37,14 @@ class Tt extends Model
         'turn_serial',
         'name',
         'card_number',
+        'info',
+        'file',
     ];
 
+    public function files()
+    {
+        return $this->hasMany(File::class,'model_id','id')->where('model',self::class);
+    }
     public function scopeFilter($query, array $filters)
     {
         if (isset($filters['number'])) {

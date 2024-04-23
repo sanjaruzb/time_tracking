@@ -28,6 +28,24 @@
                     </li>
                 @endcan
 
+                @can('cadre-index')
+                    <li class="nav-item">
+                        <a href="{{ route("cadre.index") }}" class="nav-link {{ Request::is('cadre*') ? "active":'' }}">
+                            <i class="fa fa-person-booth"></i>
+                            <p>Кадр</p>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('bugalter-index')
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="fa fa-calculator"></i>
+                            <p>Бугалтер</p>
+                        </a>
+                    </li>
+                @endcan
+
                 @can('employee-index')
                     <li class="nav-item">
                         <a href="{{ route('employee.index') }}" class="nav-link {{ Request::is('employee*') ? "active":'' }}">
@@ -56,38 +74,36 @@
                 @endcan
 
 
-                <li class="nav-item {{ (Request::is('roles*') or Request::is('permissions*') or Request::is('user*')) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ (Request::is('roles*') or Request::is('permissions*') or Request::is('user*')) ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-cog"></i>
-                        <p>
-                            Управление
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('user-index')
-                            <li class="nav-item">
-                                <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Пользователями</p>
-                                </a>
-                            </li>
-                        @endcan
+                @canany(['role-index','user-index'])
+                    <li class="nav-item {{ (Request::is('roles*') or Request::is('permissions*') or Request::is('user*')) ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ (Request::is('roles*') or Request::is('permissions*') or Request::is('user*')) ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-cog"></i>
+                            <p>
+                                Управление
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('user-index')
+                                <li class="nav-item">
+                                    <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Пользователями</p>
+                                    </a>
+                                </li>
+                            @endcan
 
-                        <li class="nav-item">
-                            <a href="{{ route('roles.index') }}" class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Роли</p>
-                            </a>
-                        </li>
-                        {{--<li class="nav-item">
-                            <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Разрешение</p>
-                            </a>
-                        </li>--}}
-                    </ul>
-                </li>
+                            @can('role-index')
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.index') }}" class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Роли</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

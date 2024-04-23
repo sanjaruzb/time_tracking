@@ -79,6 +79,17 @@ class PermissionSeeder extends Seeder
             ['name' => 'tt-edit'],
             ['name' => 'tt-update'],
             ['name' => 'tt-destroy'],
+            // Cadre
+            ['name' => 'cadre-index'],
+            ['name' => 'cadre-filter'],
+            ['name' => 'cadre-show'],
+            ['name' => 'cadre-create'],
+            ['name' => 'cadre-store'],
+            ['name' => 'cadre-edit'],
+            ['name' => 'cadre-update'],
+            ['name' => 'cadre-destroy'],
+            // Bugalter
+            ['name' => 'bugalter-index'],
         ];
         foreach ($permissionList as $item => $value){
             Permission::create($value);
