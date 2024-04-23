@@ -33,6 +33,9 @@ class CadreController extends Controller
         if($request->auth_time_to){
             $tts = $tts->where('auth_time',$request->auth_time_to_type,$request->auth_time_to);
         }
+        if (empty($request->all())){
+            $tts = $tts->where('auth_date',date("Y-m-d"));
+        }
         $tts = $tts->paginate(40);
         $types = [
             '=' => '=',
