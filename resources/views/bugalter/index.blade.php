@@ -37,6 +37,8 @@
                                 <th>Месяц</th>
                                 <th>Рабочее время</th>
                                 <th>Работающий</th>
+                                <th>Поздно</th>
+                                <th>Вперед</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -48,6 +50,8 @@
                                         <td>{{ $employee->department->name ?? ""  }}</td>
                                         <td>2024-04</td>
                                         <td>50</td>
+                                        <td>40</td>
+                                        <td>40</td>
                                         <td>40</td>
                                         <td class="text-center">
                                             <div class="btn-group">

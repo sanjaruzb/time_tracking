@@ -22,8 +22,7 @@ return new class extends Migration
             $table->string("turn_serial")->nullable();
             $table->string("name")->nullable();
             $table->string("card_number")->nullable();
-            $table->string('info')->nullable();
-            $table->string('file')->nullable();
+            $table->text('info')->nullable();
             $table->timestamps();
         });
     }
