@@ -90,6 +90,22 @@ class PermissionSeeder extends Seeder
             ['name' => 'cadre-destroy'],
             // Bugalter
             ['name' => 'bugalter-index'],
+            ['name' => 'bugalter-filter'],
+            ['name' => 'bugalter-show'],
+            ['name' => 'bugalter-create'],
+            ['name' => 'bugalter-store'],
+            ['name' => 'bugalter-edit'],
+            ['name' => 'bugalter-update'],
+            ['name' => 'bugalter-destroy'],
+            // Holiday
+            ['name' => 'holiday-index'],
+            ['name' => 'holiday-filter'],
+            ['name' => 'holiday-show'],
+            ['name' => 'holiday-create'],
+            ['name' => 'holiday-store'],
+            ['name' => 'holiday-edit'],
+            ['name' => 'holiday-update'],
+            ['name' => 'holiday-destroy'],
         ];
         foreach ($permissionList as $item => $value){
             Permission::create($value);

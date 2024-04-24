@@ -7,7 +7,6 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 @can('home-index')
@@ -37,14 +36,36 @@
                     </li>
                 @endcan
 
-                @can('bugalter-index')
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="fa fa-calculator"></i>
-                            <p>Бугалтер</p>
+                @canany(['holiday-index','bugalter-index'])
+                    <li class="nav-item {{ (Request::is('holiday*') or Request::is('bugalter*')) ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ (Request::is('holiday*') or Request::is('bugalter*')) ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-cog"></i>
+                            <p>
+                                Бугалтер
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            @can('bugalter-index')
+                                <li class="nav-item">
+                                    <a href="{{ route('bugalter.index') }}" class="nav-link {{ Request::is('bugalter*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Бугалтер</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('holiday-index')
+                                <li class="nav-item">
+                                    <a href="{{ route('holiday.index') }}" class="nav-link {{ Request::is('holiday*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Информация</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
                     </li>
-                @endcan
+                @endcanany
 
                 @can('employee-index')
                     <li class="nav-item">

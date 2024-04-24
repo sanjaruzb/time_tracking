@@ -48,13 +48,18 @@
                 </a>
                 <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
                     <li>
+                        <a href="{{ route("profile") }}" class="nav-link" role="button">
+                            <i class="fas fa-person-booth"></i>Профиль
+                        </a>
+                    </li>
+                    <li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
                         <a href="#" class="nav-link" role="button" onclick="
                                     event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt"></i>Logout
+                            <i class="fas fa-sign-out-alt"></i>Выйти
                         </a>
                     </li>
                 </ul>

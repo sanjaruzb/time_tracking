@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
+            $table->string("number")->nullable();
             $table->string("fio")->nullable();
             $table->date("date_entry")->nullable();
             $table->unsignedBigInteger("position_id")->nullable();
