@@ -41,7 +41,7 @@ class CadreController extends Controller
                 'track' => -1,
                 ['auth_time', '>', '18:00:00']
             ]);
-        });
+        })->where('status', 0);
         $tts = $tts->paginate(40);
         $types = [
             '=' => '=',
