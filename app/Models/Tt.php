@@ -24,6 +24,13 @@ class Tt extends Model
 
     protected $table = 'tt';
 
+    static $statuses = [
+        0 => 'Yangi',
+        1 => 'Sababli',
+        2 => 'Sababsiz',
+        3 => 'Norma',
+    ];
+
     static $kirish = 1;
     static $chiqish = -1;
 
