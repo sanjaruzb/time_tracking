@@ -35,6 +35,7 @@
                                 <th>Дата авторизации</th>
                                 <th>Время авторизации</th>
                                 <th>вход/выход</th>
+                                <th>Статус</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -47,7 +48,22 @@
                                     <td>{{ $tt->auth_time }}</td>
                                     <td>{{ \App\Helpers\TrackHelper::getTrack($tt->track) }}</td>
                                     <td>
+                                        <span class="badge @if($tt->status == 1) badge-info @elseif($tt->status == 2) badge-danger @elseif($tt->status == 3) badge-success @else badge-dark @endif">{{ \App\Helpers\StatusHelper::getTtStatus($tt->status) }}</span>
+                                    </td>
+                                    <td>
                                         <div class="btn-group">
+                                            @can('cadre-changestatus')
+                                                <a class="" onclick="if (confirm('Вы уверены?')) { this.form.submit() }" style="margin-right: 10px" href="{{ route('ttChangeStatus',[$tt->id,3]) }}">
+                                                    <span class="fa fa-check" style="color: #00a379"></span>
+                                                </a>
+                                            @endcan
+
+                                            @can('cadre-changestatus')
+                                                <a class="" onclick="if (confirm('Вы уверены?')) { this.form.submit() } " style="margin-right: 10px" href="{{ route('ttChangeStatus',[$tt->id,2]) }}">
+                                                    ❌
+                                                </a>
+                                            @endcan
+
                                             @can('cadre-show')
                                                 <a class="" style="margin-right: 10px" href="{{ route('cadre.show',$tt->id) }}">
                                                     <span class="fa fa-eye"></span>

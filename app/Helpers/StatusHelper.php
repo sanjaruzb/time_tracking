@@ -12,4 +12,14 @@ class StatusHelper
     public static function getCommonStatus($index){
         return self::$commonStatus[$index] ?? 'Неопределенный';
     }
+
+    public static $ttStatus = [
+        1 => "Простой",
+        2 => "Без причины",
+        3 => "Причины",
+    ];
+
+    public static function getTtStatus($index){
+        return self::$ttStatus[$index] ?? 'Неопределенный';
+    }
 }

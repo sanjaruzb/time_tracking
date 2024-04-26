@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string("name")->nullable();
             $table->string("card_number")->nullable();
             $table->text('info')->nullable();
+            $table->tinyInteger('status')->default(1)->comment("1->, 2 -> Без причины, 3 -> Причины");
             $table->timestamps();
         });
     }

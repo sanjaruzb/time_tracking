@@ -88,4 +88,21 @@ class CadreController extends Controller
         ]);
         return redirect()->route('cadre.show', $id)->with('success', 'Информация изменена успешно');
     }
+
+    public function changeStatus($id, $status)
+    {
+        $tt = Tt::find($id);
+        if (!$tt) {
+            return redirect()->back()->with('error', "Время не найдено");
+        }
+        if (!in_array($status, [2, 3])) {
+            return redirect()->back()->with('error', "Неверное значение статуса");
+        }
+        $tt->update([
+            'status' => $status,
+        ]);
+        return redirect()->back()->with('success', 'Статус изменена успешно');
+    }
+
+
 }

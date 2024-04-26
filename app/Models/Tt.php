@@ -38,6 +38,7 @@ class Tt extends Model
         'name',
         'card_number',
         'info',
+        'status',
     ];
 
     public function files()

@@ -88,6 +88,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'cadre-edit'],
             ['name' => 'cadre-update'],
             ['name' => 'cadre-destroy'],
+            ['name' => 'cadre-changestatus'],
             // Bugalter
             ['name' => 'bugalter-index'],
             ['name' => 'bugalter-filter'],
