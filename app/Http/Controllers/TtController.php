@@ -5,12 +5,25 @@ namespace App\Http\Controllers;
 use App\Imports\Report;
 use App\Models\Tt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Shuchkin\SimpleXLS;
 
 class TtController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $actions = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'];
+            foreach ($actions as $action) {
+                if ($request->route()->getActionMethod() === $action && !Gate::allows('tt-' . $action)) {
+                    abort(403);
+                }
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      */

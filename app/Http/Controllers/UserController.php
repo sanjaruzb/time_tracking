@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -11,6 +12,18 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $actions = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'];
+            foreach ($actions as $action) {
+                if ($request->route()->getActionMethod() === $action && !Gate::allows('user-' . $action)) {
+                    abort(403, 'К сожалению, у вас нет разрешения на доступ к этому ресурсу.');
+                }
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      */

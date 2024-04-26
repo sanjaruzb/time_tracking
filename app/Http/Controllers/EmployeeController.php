@@ -6,11 +6,24 @@ use App\Models\Department;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $actions = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'];
+            foreach ($actions as $action) {
+                if ($request->route()->getActionMethod() === $action && !Gate::allows('employee-' . $action)) {
+                    abort(403);
+                }
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      */

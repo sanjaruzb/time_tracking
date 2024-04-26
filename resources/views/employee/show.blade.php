@@ -68,7 +68,7 @@
                                 </tr>
                                 <tr>
                                     <th>Пол</th>
-                                    <td>{{ $user->gender }}</td>
+                                    <td>{{ \App\Models\User::$genders[$user->gender] ?? "" }}</td>
                                 </tr>
 
                                 <tr>

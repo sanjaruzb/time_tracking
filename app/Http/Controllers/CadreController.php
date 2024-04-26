@@ -5,10 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\Tt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class CadreController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $actions = ['index', 'show', 'edit', 'update', 'destroy','changeStatus'];
+            foreach ($actions as $action) {
+                if ($request->route()->getActionMethod() === $action && !Gate::allows('cadre-' . $action)) {
+                    abort(403);
+                }
+            }
+            return $next($request);
+        });
+    }
+
     public function index(Request $request)
     {
         $tts = Tt::latest();

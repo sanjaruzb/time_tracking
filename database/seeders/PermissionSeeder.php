@@ -17,6 +17,7 @@ class PermissionSeeder extends Seeder
             // home page
             ['name' => 'home-show'],
             ['name' => 'home-index'],
+            ['name' => 'home-profile'],
             // permission page
             ['name' => 'permission-show'],
             ['name' => 'permission-index'],
@@ -37,9 +38,9 @@ class PermissionSeeder extends Seeder
             // user page
             ['name' => 'user-index'],
             ['name' => 'user-filter'],
-            ['name' => 'user-show'],
             ['name' => 'user-create'],
             ['name' => 'user-store'],
+            ['name' => 'user-show'],
             ['name' => 'user-edit'],
             ['name' => 'user-update'],
             ['name' => 'user-destroy'],
@@ -88,7 +89,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'cadre-edit'],
             ['name' => 'cadre-update'],
             ['name' => 'cadre-destroy'],
-            ['name' => 'cadre-changestatus'],
+            ['name' => 'cadre-changeStatus'],
             // Bugalter
             ['name' => 'bugalter-index'],
             ['name' => 'bugalter-filter'],

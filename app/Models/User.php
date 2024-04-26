@@ -14,6 +14,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
+    static $genders = [
+        0 => 'Мужской',
+        1 => 'Женский',
+    ];
     /**
      * The attributes that are mass assignable.
      *

@@ -4,10 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Holiday;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class HolidayController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $actions = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'];
+            foreach ($actions as $action) {
+                if ($request->route()->getActionMethod() === $action && !Gate::allows('holiday-' . $action)) {
+                    abort(403);
+                }
+            }
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      */

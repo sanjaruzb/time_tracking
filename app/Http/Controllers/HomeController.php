@@ -13,7 +13,15 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            $actions = ['index', 'profile'];
+            foreach ($actions as $action) {
+                if ($request->route()->getActionMethod() === $action && !Gate::allows('home-' . $action)) {
+                    abort(403);
+                }
+            }
+            return $next($request);
+        });
     }
 
     /**

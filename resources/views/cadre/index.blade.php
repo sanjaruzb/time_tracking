@@ -52,13 +52,13 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            @can('cadre-changestatus')
+                                            @can('cadre-changeStatus')
                                                 <a class="" onclick="if (confirm('Вы уверены?')) { this.form.submit() }" style="margin-right: 10px" href="{{ route('ttChangeStatus',[$tt->id,3]) }}">
                                                     <span class="fa fa-check" style="color: #00a379"></span>
                                                 </a>
                                             @endcan
 
-                                            @can('cadre-changestatus')
+                                            @can('cadre-changeStatus')
                                                 <a class="" onclick="if (confirm('Вы уверены?')) { this.form.submit() } " style="margin-right: 10px" href="{{ route('ttChangeStatus',[$tt->id,2]) }}">
                                                     ❌
                                                 </a>

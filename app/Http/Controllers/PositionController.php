@@ -4,10 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class PositionController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $actions = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'];
+            foreach ($actions as $action) {
+                if ($request->route()->getActionMethod() === $action && !Gate::allows('position-' . $action)) {
+                    abort(403);
+                }
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      */

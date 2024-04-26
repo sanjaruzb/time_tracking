@@ -115,7 +115,7 @@
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     <label for="birth_place"><strong>Пол:</strong></label>{!! Form::label('gender',"*",['style'=>"color:red"]) !!}
-                                    {!! Form::text('gender', null, ['autocomplete'=>'OFF','id'=>'gender','placeholder' => 'Пол','required'=>true,'class' => "form-control ".($errors->has('gender') ? 'is-invalid' : '')]) !!}
+                                    {!! Form::select('gender', \App\Models\User::$genders,null, ['autocomplete'=>'OFF','id'=>'gender','required'=>true,'class' => "form-control ".($errors->has('gender') ? 'is-invalid' : '')]) !!}
                                     @if($errors->has('gender'))
                                         <span class="error invalid-feedback">{{ $errors->first('gender') }}</span>
                                     @endif
