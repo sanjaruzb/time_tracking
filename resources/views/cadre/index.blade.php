@@ -53,7 +53,7 @@
                                     <td>
                                         <div class="btn-group">
                                             @can('cadre-changestatus')
-                                                <a class="" onclick="if (confirm('Вы уверены?')) { this.form.submit() }" style="margin-right: 10px" href="{{ route('ttChangeStatus',[$tt->id,1]) }}">
+                                                <a class="" onclick="if (confirm('Вы уверены?')) { this.form.submit() }" style="margin-right: 10px" href="{{ route('ttChangeStatus',[$tt->id,3]) }}">
                                                     <span class="fa fa-check" style="color: #00a379"></span>
                                                 </a>
                                             @endcan
