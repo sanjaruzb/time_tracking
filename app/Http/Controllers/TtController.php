@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\Report;
 use App\Models\Tt;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
@@ -48,6 +49,7 @@ class TtController extends Controller
      */
     public function store(Request $request)
     {
+        ini_set('max_execution_time', 180);
         $this->validate($request, [
             'excel' => 'required|file|mimes:xlsx',
         ]);
@@ -57,6 +59,21 @@ class TtController extends Controller
         $array = Excel::toArray(new Report(), storage_path('excel_files\\' . $file_name));
         foreach ($array[0] as $key => $a){
             if($key != 0 and isset($a[10]) and (strlen($a[9]) == 8 and strlen($a[10]) == 8)){
+
+                if(!User::where(['number'=>$a[1]])->exists()){
+                    $names = explode(' ',$a[2]);
+                    $temp = User::create([
+                        'firstname' => $names[1] ?? '',
+                        'lastname' => $names[0] ?? '',
+                        'email' => 'tmz'. $a[1] .'@tmz.com',
+                        'password' => $a[1],
+                        'number' => $a[1],
+                        'fio' => $a[2],
+                        'date_entry' => date("Y-m-d"),
+                    ]);
+                }
+
+
                 Tt::create([
                     'number' => $a[1],
                     'name' => $a[2],
