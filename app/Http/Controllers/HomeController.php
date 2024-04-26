@@ -16,9 +16,9 @@ class HomeController extends Controller
         $this->middleware(function ($request, $next) {
             $actions = ['index', 'profile'];
             foreach ($actions as $action) {
-                if ($request->route()->getActionMethod() === $action && !Gate::allows('home-' . $action)) {
-                    abort(403);
-                }
+//                if ($request->route()->getActionMethod() === $action && !Gate::allows('home-' . $action)) {
+//                    abort(403);
+//                }
             }
             return $next($request);
         });

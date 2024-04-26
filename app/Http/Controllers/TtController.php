@@ -49,6 +49,7 @@ class TtController extends Controller
      */
     public function store(Request $request)
     {
+        ini_set('max_execution_time', 180);
         $this->validate($request, [
             'excel' => 'required|file|mimes:xlsx',
         ]);
@@ -59,13 +60,14 @@ class TtController extends Controller
         foreach ($array[0] as $key => $a){
             if($key != 0 and isset($a[10]) and (strlen($a[9]) == 8 and strlen($a[10]) == 8)){
 
-                if(User::where(['number'=>$a[1]])->exists()){
+                if(!User::where(['number'=>$a[1]])->exists()){
                     $names = explode(' ',$a[2]);
-                    User::create([
+                    $temp = User::create([
                         'firstname' => $names[1] ?? '',
                         'lastname' => $names[0] ?? '',
                         'email' => 'tmz'. $a[1] .'@tmz.com',
                         'password' => $a[1],
+                        'number' => $a[1],
                         'fio' => $a[2],
                         'date_entry' => date("Y-m-d"),
                     ]);
