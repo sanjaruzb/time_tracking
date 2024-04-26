@@ -14,6 +14,16 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <label for="info"><strong>Тип информации:</strong></label>
+                                    {!! Form::select('info_type', \App\Models\Tt::$infoType,null, ['autocomplete'=>'OFF','id'=>'info','placeholder' => '','class' => "form-control ".($errors->has('info_type') ? 'is-invalid' : '')]) !!}
+                                    @if($errors->has('info_type'))
+                                        <span class="error invalid-feedback">{{ $errors->first('info_type') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
                                     <label for="info"><strong>Информация:</strong></label>
                                     {!! Form::textarea('info', null, ['rows' => 5, 'autocomplete'=>'OFF','id'=>'info','placeholder' => 'Информация','class' => "form-control ".($errors->has('info') ? 'is-invalid' : '')]) !!}
                                     @if($errors->has('info'))

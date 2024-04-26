@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string("name")->nullable();
             $table->string("card_number")->nullable();
             $table->text('info')->nullable();
+            $table->unsignedBigInteger('info_type')->nullable();
             $table->timestamps();
         });
     }

@@ -31,6 +31,11 @@ class Tt extends Model
         3 => 'Norma',
     ];
 
+    static $infoType = [
+        0 => 'Otpuska',
+        1 => 'Kamandirochniy',
+        2 => 'Balnichni',
+    ];
     static $kirish = 1;
     static $chiqish = -1;
 
@@ -46,6 +51,7 @@ class Tt extends Model
         'card_number',
         'info',
         'status',
+        'info_type',
     ];
 
     public function files()
