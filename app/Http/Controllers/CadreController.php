@@ -97,11 +97,11 @@ class CadreController extends Controller
 
     public function changeStatus($id, $status)
     {
-        $tt = Tt::find($id);
+        $tt = Tt::where('id',$id)->first();
         if (!$tt) {
             return redirect()->back()->with('error', "Время не найдено");
         }
-        if (!in_array($status, [2, 3])) {
+        if (!in_array($status, [0,1,2,3])) {
             return redirect()->back()->with('error', "Неверное значение статуса");
         }
         $tt->update([

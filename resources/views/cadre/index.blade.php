@@ -48,12 +48,12 @@
                                     <td>{{ $tt->auth_time }}</td>
                                     <td>{{ \App\Helpers\TrackHelper::getTrack($tt->track) }}</td>
                                     <td>
-                                        <span class="badge @if($tt->status == 1) badge-info @elseif($tt->status == 2) badge-danger @elseif($tt->status == 3) badge-success @else badge-dark @endif">{{ \App\Helpers\StatusHelper::getTtStatus($tt->status) }}</span>
+                                        {{ \App\Models\Tt::$statuses[$tt->status] }}
                                     </td>
                                     <td>
                                         <div class="btn-group">
                                             @can('cadre-changestatus')
-                                                <a class="" onclick="if (confirm('Вы уверены?')) { this.form.submit() }" style="margin-right: 10px" href="{{ route('ttChangeStatus',[$tt->id,3]) }}">
+                                                <a class="" onclick="if (confirm('Вы уверены?')) { this.form.submit() }" style="margin-right: 10px" href="{{ route('ttChangeStatus',[$tt->id,1]) }}">
                                                     <span class="fa fa-check" style="color: #00a379"></span>
                                                 </a>
                                             @endcan
@@ -177,6 +177,12 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>Статус:</strong>
+                                                    {!! Form::select('status', \App\Models\Tt::$statuses,request()->get('status'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
