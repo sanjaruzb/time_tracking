@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -66,6 +67,13 @@ class Tt extends Model
         if (isset($filters['name'])) {
             $query->where('name', 'like', "%{$filters['name']}%");
         }
+        if (isset($filters['department'])) {
+
+            $query->whereHas('department', function (Builder $query) use ($filters) {
+                $query->where('name', 'LIKE', "%{$filters['department']}%");
+            });
+
+        }
         if (isset($filters['auth_date'])) {
             $query->where('auth_date', $filters['auth_date']);
         }
@@ -76,5 +84,13 @@ class Tt extends Model
             $query->where('track', $filters['track']);
         }
         return $query;
+    }
+
+    public function user(){
+        return $this->hasOne(User::class, 'number','number');
+    }
+
+    public function department(){
+        return $this->hasOneThrough(Department::class,User::class,'number','id','number','department_id');
     }
 }

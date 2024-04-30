@@ -30,6 +30,7 @@
                     <tr>
                         <th>Номер</th>
                         <th>Ф.И.О</th>
+                        <th>Отдел</th>
                         <th>Дата авторизации</th>
                         <th>Время авторизации</th>
                         <th>вход/выход</th>
@@ -41,6 +42,7 @@
                         <tr>
                             <td>{{ $tt->number }}</td>
                             <td>{{ $tt->name }}</td>
+                            <td>{{ $tt->department->name ?? "" }}</td>
                             <td>{{ $tt->auth_date }}</td>
                             <td>{{ $tt->auth_time }}</td>
                             <td>{{ \App\Helpers\TrackHelper::getTrack($tt->track) }}</td>
@@ -97,6 +99,13 @@
                                     <div class="form-group">
                                         <strong>Ф.И.О:</strong>
                                         {!! Form::text('name', request()->get('name'), ['placeholder' => 'Ф.И.О','maxlength'=> 100,'class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Отдел:</strong>
+                                        {!! Form::text('department', request()->get('department'), ['placeholder' => 'Номер отдела','maxlength'=> 100,'class' => 'form-control']) !!}
                                     </div>
                                 </div>
 

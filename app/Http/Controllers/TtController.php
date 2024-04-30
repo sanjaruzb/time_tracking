@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\Report;
+use App\Models\Department;
 use App\Models\Tt;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Shuchkin\SimpleXLS;
+use Spatie\Permission\Models\Role;
 
 class TtController extends Controller
 {
@@ -30,7 +32,7 @@ class TtController extends Controller
      */
     public function index(Request $request)
     {
-        $tts = Tt::filter($request->all())->latest()->paginate(40);
+        $tts = Tt::with('department')->filter($request->all())->latest()->paginate(40);
         return view('tt.index', [
             'tts' => $tts
         ]);
@@ -49,7 +51,7 @@ class TtController extends Controller
      */
     public function store(Request $request)
     {
-        ini_set('max_execution_time', 180);
+        ini_set('max_execution_time', 300);
         $this->validate($request, [
             'excel' => 'required|file|mimes:xlsx',
         ]);
@@ -58,36 +60,48 @@ class TtController extends Controller
         $request->file('excel')->move(storage_path('excel_files'), $file_name);
         $array = Excel::toArray(new Report(), storage_path('excel_files\\' . $file_name));
         foreach ($array[0] as $key => $a){
-            if($key != 0 and isset($a[10]) and (strlen($a[9]) == 8 and strlen($a[10]) == 8)){
+            if($key != 0){
 
-                if(!User::where(['number'=>$a[1]])->exists()){
-                    $names = explode(' ',$a[2]);
-                    $temp = User::create([
-                        'firstname' => $names[1] ?? '',
-                        'lastname' => $names[0] ?? '',
-                        'email' => 'tmz'. $a[1] .'@tmz.com',
-                        'password' => $a[1],
-                        'number' => $a[1],
-                        'fio' => $a[2],
-                        'date_entry' => date("Y-m-d"),
-                    ]);
-                }
+                $names = explode(' ',$a[2]);
 
-
-                Tt::create([
+                $dep = Department::firstOrCreate([
+                    'code' => (int)substr($a[3],strpos($a[3], 'TMZ/') + 4),
+                ],[
+                    'name' => $a[3],
+                    'status' => 1,
+                ]);
+                $temp = User::firstOrCreate([
                     'number' => $a[1],
-                    'name' => $a[2],
-                    'auth_date' => $a[6],
-                    'auth_time' => $a[9],
-                    'track' => Tt::$kirish,
+                ],[
+                    'firstname' => $names[1] ?? '',
+                    'lastname' => $names[0] ?? '',
+                    'email' => 'tmz'. $a[1] .'@tmz.com',
+                    'department_id' => $dep->id ?? null,
+                    'password' => $a[1],
+                    'fio' => $a[2],
+                    'date_entry' => date("Y-m-d"),
                 ]);
 
-                Tt::create([
+                $role = Role::where(['name' => 'Employee'])->first();
+                $temp->assignRole([$role->id]);
+
+
+                Tt::firstOrCreate([
                     'number' => $a[1],
-                    'name' => $a[2],
                     'auth_date' => $a[6],
-                    'auth_time' => $a[10],
+                    'track' => Tt::$kirish,
+                ],[
+                    'name' => $a[2],
+                    'auth_time' => $a[9],
+                ]);
+
+                Tt::firstOrCreate([
+                    'number' => $a[1],
+                    'auth_date' => $a[6],
                     'track' => Tt::$chiqish,
+                ],[
+                    'name' => $a[2],
+                    'auth_time' => $a[10],
                 ]);
             }
         }
