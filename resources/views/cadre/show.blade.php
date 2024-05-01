@@ -37,6 +37,12 @@
                                     <th>Информация</th>
                                     <td>{{ $tt->info }}</td>
                                 </tr>
+
+                                <tr>
+                                    <th>Тип информации</th>
+                                    <td>{{ \App\Models\Tt::$infoType[$tt->info_type] ?? '' }}</td>
+                                </tr>
+
                                 <tr>
                                     <th>Файл</th>
                                     <td>

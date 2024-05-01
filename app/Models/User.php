@@ -103,4 +103,12 @@ class User extends Authenticatable
     public function department(){
         return $this->belongsTo(Department::class);
     }
+
+    public function change_hours(){
+        return $this->hasMany(ChangeHours::class);
+    }
+
+    public function gender_text(){
+        return self::$genders[$this->gender];
+    }
 }

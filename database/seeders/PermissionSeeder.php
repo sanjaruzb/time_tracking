@@ -108,6 +108,8 @@ class PermissionSeeder extends Seeder
             ['name' => 'holiday-edit'],
             ['name' => 'holiday-update'],
             ['name' => 'holiday-destroy'],
+            ['name' => 'change-working-hours'],
+            ['name' => 'change-hours-index'],
         ];
         foreach ($permissionList as $item => $value){
             Permission::create($value);

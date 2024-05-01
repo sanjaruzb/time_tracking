@@ -51,7 +51,7 @@
                             </thead>
                             <tbody>
                             @foreach($employees as $employee)
-                                <tr>
+                                <tr style="{{$employee->position ? "" : "background-color: rgb(237 202 31 / 30%);" }}" >
                                     <td>{{ $employee->fio }}</td>
                                     <td>{{ $employee->date_entry }}</td>
                                     <td>
@@ -66,17 +66,11 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
+
                                             @can('employee-show')
                                                 <a class="" href="{{ route('employee.show',$employee->id) }}"
                                                    style="margin-right: 7px">
                                                     <span class="fa fa-eye"></span>
-                                                </a>
-                                            @endcan
-
-                                            @can('employee-edit')
-                                                <a class="" href="{{ route('employee.edit',$employee->id) }}"
-                                                   style="margin-right: 2px">
-                                                    <span class="fa fa-edit" style="color: #562bb0"></span>
                                                 </a>
                                             @endcan
 

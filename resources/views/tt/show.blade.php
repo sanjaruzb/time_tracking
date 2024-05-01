@@ -33,6 +33,36 @@
                                     <th>вход/выход</th>
                                     <td>{{ \App\Helpers\TrackHelper::getTrack($tt->track) }}</td>
                                 </tr>
+
+                                <tr>
+                                    <th>вход/выход</th>
+                                    <td>{{ \App\Helpers\TrackHelper::getTrack($tt->track) }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Информация</th>
+                                    <td>{{ $tt->info }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Тип информации</th>
+                                    <td>{{ \App\Models\Tt::$infoType[$tt->info_type] ?? '' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Файл</th>
+                                    <td>
+                                        @foreach($tt->files as $f)
+                                            @if($f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'png' or $f->ext == 'gif' or $f->ext == 'bmp' or $f->ext == 'tiff' or $f->ext == 'tif' or $f->ext == 'webp' or $f->ext == 'svg' or $f->ext == 'jfif')
+                                                <img src="{{ asset("public/tt_files/".$f->name) }}" height="150px" width="150px" style="margin: 5px">
+                                            @elseif($f->ext == 'pdf' or $f->ext == 'pdfa' or $f->ext == 'pdfx' or $f->ext == 'pdfe' or $f->ext == 'pdfua' or $f->ext == 'pdx')
+
+                                            @endif
+
+                                        @endforeach
+                                    </td>
+                                </tr>
+
                             </thead>
                             <tbody>
                             </tbody>
