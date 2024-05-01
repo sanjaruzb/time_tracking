@@ -151,7 +151,7 @@
 
                                         <td>Изменить рабочее время индувидуально</td>
                                         <td>
-                                            <a href="" class="btn btn-primary">action</a>
+                                            <a href="/employee/chane-individual/{{$user->id}}" class="btn btn-primary">action</a>
                                         </td>
                                     </tr>
                                 @endcan
@@ -172,17 +172,20 @@
                         <table id="dataTable" class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg" user="grid" aria-describedby="dataTable_info">
                             <thead>
                             <tr>
-                                <th colspan="5">История изменении рабочего времени</th>
+                                <th colspan="4">История изменении рабочего времени</th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach($user->change_hours as $c)
                                     <tr>
-                                        <td>{{mb_strlen($c->description) > 33 ? mb_substr($c->description,0,30) . ' ...' : $c->description }}</td>
-                                        <td>{{$c->status_name()}}</td>
+                                        <td>
+                                            <b class="badge bg-warning">{{$c->status_name()}}</b>
+                                            <br>
+                                            {{mb_strlen($c->description) > 33 ? mb_substr($c->description,0,30) . ' ...' : $c->description }}
+                                        </td>
                                         <td>file</td>
                                         <td>
-                                            {{$c->created_at}}
+                                            {{substr($c->created_at, 0, 10)}}
                                             <br>
                                             {{$c->effective_date}}
                                         </td>

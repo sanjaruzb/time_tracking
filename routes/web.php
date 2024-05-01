@@ -12,6 +12,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/employee/chane-template/{id}', '\App\Http\Controllers\EmployeeController@change_template');
     Route::post('/employee/chane-template-submit', '\App\Http\Controllers\EmployeeController@change_template_submit')->name('employee.chane-template-submit');
 
+    Route::get('/employee/chane-individual/{id}', '\App\Http\Controllers\EmployeeController@change_individual');
+    Route::post('/employee/chane-individual-submit', '\App\Http\Controllers\EmployeeController@change_individual_submit')->name('employee.chane-individual-submit');
+
     Route::resource('department', \App\Http\Controllers\DepartmentController::class);
     Route::resource('position', \App\Http\Controllers\PositionController::class);
     Route::resource('roles', \App\Http\Controllers\RoleController::class);

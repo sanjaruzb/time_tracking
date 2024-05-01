@@ -25,7 +25,7 @@ class CadreController extends Controller
 
     public function index(Request $request)
     {
-        $tts = Tt::latest();
+        $tts = Tt::with('user')->latest();
         if ($request->number){
             $tts = $tts->where('number',$request->number);
         }

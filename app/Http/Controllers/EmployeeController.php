@@ -190,4 +190,33 @@ class EmployeeController extends Controller
 
         return redirect()->route('employee.show', $request->id)->with('success','Данные сохронены');
     }
+
+
+    public function change_individual($id){
+        $user = User::where('id',$id)->first();
+        return view('employee.change_individual',[
+            'user' => $user
+        ]);
+    }
+
+
+    public function change_individual_submit(Request $request){
+
+        $this->validate($request, [
+            'id' => 'required',
+            'template.*' => 'required',
+            'info' => 'required',
+            'effective_date' => 'required',
+        ]);
+
+        ChangeHours::create([
+            'user_id' => $request->id,
+            'description' => $request->info,
+            'shift' => json_encode($request->template),
+            'status' => 0,
+            'effective_date' => $request->effective_date,
+        ]);
+
+        return redirect()->route('employee.show', $request->id)->with('success','Данные сохронены');
+    }
 }
