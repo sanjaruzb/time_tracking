@@ -49,7 +49,7 @@ class TtController extends Controller
      */
     public function store(Request $request)
     {
-        ini_set('max_execution_time', 180);
+        ini_set('max_execution_time', 300);
         $this->validate($request, [
             'excel' => 'required|file|mimes:xlsx',
         ]);
