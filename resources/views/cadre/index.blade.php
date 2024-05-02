@@ -32,6 +32,7 @@
                             <tr>
                                 <th>Номер</th>
                                 <th>Ф.И.О</th>
+                                <th>Статус прибытия</th>
                                 <th>Дата авторизации</th>
                                 <th>Время авторизации</th>
                                 <th>вход/выход</th>
@@ -41,9 +42,14 @@
                             </thead>
                             <tbody>
                             @foreach ($tts as $key => $tt)
-                                <tr>
+                                <tr >
                                     <td>{{ $tt->number }}</td>
                                     <td>{{ $tt->name }}</td>
+                                    <td><small class="badge <?php
+                                        if ($tt->arrival_status == 1 or $tt->arrival_status == -1) echo "badge-danger";
+                                        if ($tt->arrival_status == 2 or $tt->arrival_status == -2) echo "badge-success";
+                                        if ($tt->arrival_status == 3 or $tt->arrival_status == -3) echo "badge-warning";
+                                    ?>"><i class="far fa-clock"></i>{{ $tt->arrival_status_name() }}</small></td>
                                     <td>{{ $tt->auth_date }}</td>
                                     <td>{{ $tt->auth_time }}</td>
                                     <td>{{ \App\Helpers\TrackHelper::getTrack($tt->track) }}</td>
@@ -181,6 +187,13 @@
                                                 <div class="form-group">
                                                     <strong>Статус:</strong>
                                                     {!! Form::select('status', \App\Models\Tt::$statuses,request()->get('status'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>Статус прибытия:</strong>
+                                                    {!! Form::select('arrival_status', \App\Models\Tt::$arrival_statuses,request()->get('status'), ['placeholder' => '','class' => 'form-control']) !!}
                                                 </div>
                                             </div>
                                         </div>

@@ -85,24 +85,32 @@ class TtController extends Controller
                 $role = Role::where(['name' => 'Employee'])->first();
                 $temp->assignRole([$role->id]);
 
+                $today_k = 'day' . date('w') . '_1';
+                $today_c = 'day' . date('w') . '_2';
 
-                Tt::firstOrCreate([
-                    'number' => $a[1],
-                    'auth_date' => $a[6],
-                    'track' => Tt::$kirish,
-                ],[
-                    'name' => $a[2],
-                    'auth_time' => $a[9],
-                ]);
 
-                Tt::firstOrCreate([
-                    'number' => $a[1],
-                    'auth_date' => $a[6],
-                    'track' => Tt::$chiqish,
-                ],[
-                    'name' => $a[2],
-                    'auth_time' => $a[10],
-                ]);
+                if(strlen($a[9]) > 7){
+                    Tt::updateOrCreate([
+                        'number' => $a[1],
+                        'auth_date' => $a[6],
+                        'track' => Tt::$kirish,
+                    ],[
+                        'name' => $a[2],
+                        'auth_time' => $a[9],
+                        'arrival_status' => strtotime('1970-01-01 ' . $a[9]) < strtotime('1970-01-01 ' . $temp->$today_k) ? 2 : 3
+                    ]);
+                }
+                if(strlen($a[10]) > 7) {
+                    Tt::updateOrCreate([
+                        'number' => $a[1],
+                        'auth_date' => $a[6],
+                        'track' => Tt::$chiqish,
+                    ], [
+                        'name' => $a[2],
+                        'auth_time' => $a[10],
+                        'arrival_status' => strtotime('1970-01-01 ' . $a[10]) > strtotime('1970-01-01 ' . $temp->$today_c) ? -2 : -3
+                    ]);
+                }
             }
         }
         return redirect()->route('tt.index')->with('success', 'Excel успешно создан');

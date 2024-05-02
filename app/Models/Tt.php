@@ -32,6 +32,15 @@ class Tt extends Model
         3 => 'Norma',
     ];
 
+    static $arrival_statuses = [
+        1 => 'kemagan',
+        2 => 'vaqtida kegan',
+        3 => 'kechikib kegan',
+        -1=> 'ketmagan',
+        -2=> 'vaqtida ketgan',
+        -3=> 'erta ketgan',
+    ];
+
     static $infoType = [
         0 => 'Otpuska',
         1 => 'Kamandirochniy',
@@ -53,6 +62,7 @@ class Tt extends Model
         'info',
         'status',
         'info_type',
+        'arrival_status',
     ];
 
     public function files()
@@ -92,5 +102,9 @@ class Tt extends Model
 
     public function department(){
         return $this->hasOneThrough(Department::class,User::class,'number','id','number','department_id');
+    }
+
+    public function arrival_status_name(){
+        return self::$arrival_statuses[$this->arrival_status];
     }
 }
