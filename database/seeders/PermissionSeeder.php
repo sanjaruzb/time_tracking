@@ -53,6 +53,11 @@ class PermissionSeeder extends Seeder
             ['name' => 'employee-edit'],
             ['name' => 'employee-update'],
             ['name' => 'employee-destroy'],
+            ['name' => 'employee-change_template'],
+            ['name' => 'employee-change_template_submit'],
+            ['name' => 'employee-download_file'],
+            ['name' => 'employee-change_individual'],
+            ['name' => 'employee-change-working-hours'],
             // Position
             ['name' => 'position-index'],
             ['name' => 'position-filter'],
@@ -108,8 +113,10 @@ class PermissionSeeder extends Seeder
             ['name' => 'holiday-edit'],
             ['name' => 'holiday-update'],
             ['name' => 'holiday-destroy'],
-            ['name' => 'change-working-hours'],
-            ['name' => 'change-hours-index'],
+            // Change Hours
+            ['name' => 'changehour-index'],
+            ['name' => 'changehour-allow'],
+            ['name' => 'changehour-cancel'],
         ];
         foreach ($permissionList as $item => $value){
             Permission::create($value);

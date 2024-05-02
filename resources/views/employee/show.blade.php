@@ -140,7 +140,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @can('change-working-hours')
+                                @can('employee-change-working-hours')
                                     <tr>
                                         <td>Изменить рабочее время по шаблону</td>
                                         <td>

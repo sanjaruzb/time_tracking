@@ -18,7 +18,7 @@ class EmployeeController extends Controller
     function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $actions = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'];
+            $actions = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy','change_template','change_template_submit','download_file','change_individual'];
             foreach ($actions as $action) {
                 if ($request->route()->getActionMethod() === $action && !Gate::allows('employee-' . $action)) {
                     abort(403);

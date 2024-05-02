@@ -95,8 +95,13 @@
                             </td>
                             <td>{{$c->effective_date}}</td>
                             <td>
-                                <a href="{{ route("change_hours.allow",$c->id) }}" class="btn btn-success">Разрешить</a>
-                                <a href="{{ route("change_hours.cancel",$c->id) }}" class="btn btn-primary">Отменить</a>
+                                @can('changehour-allow')
+                                    <a href="{{ route("change_hours.allow",$c->id) }}" class="btn btn-success">Разрешить</a>
+                                @endcan
+
+                                @can('changehour-cancel')
+                                    <a href="{{ route("change_hours.cancel",$c->id) }}" class="btn btn-primary">Отменить</a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
