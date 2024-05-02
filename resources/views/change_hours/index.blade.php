@@ -9,6 +9,17 @@
             </h3>
         </div>
         <div class="card-body">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
             <table id="dataTable" class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg" user="grid" aria-describedby="dataTable_info">
                 <thead>
                 <tr>
@@ -84,8 +95,8 @@
                             </td>
                             <td>{{$c->effective_date}}</td>
                             <td>
-                                <a href="" class="btn btn-success">Разрешить</a>
-                                <a href="" class="btn btn-primary">Отменить</a>
+                                <a href="{{ route("change_hours.allow",$c->id) }}" class="btn btn-success">Разрешить</a>
+                                <a href="{{ route("change_hours.cancel",$c->id) }}" class="btn btn-primary">Отменить</a>
                             </td>
                         </tr>
                     @endforeach

@@ -27,6 +27,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('tt', \App\Http\Controllers\TtController::class);
 
     Route::get('/change-hours/index', '\App\Http\Controllers\ChangeHoursController@index')->name('change_hours.index');
+    Route::get('/change-hours/allow/{id}', '\App\Http\Controllers\ChangeHoursController@allow')->name('change_hours.allow');
+    Route::get('/change-hours/cancel/{id}', '\App\Http\Controllers\ChangeHoursController@cancel')->name('change_hours.cancel');
 
 
 //    Route::get('/cwh/change/{id}','\App\Http\Controllers\CwhController@change')->name('change-work-hours.change');

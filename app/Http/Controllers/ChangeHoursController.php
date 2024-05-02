@@ -15,4 +15,26 @@ class ChangeHoursController extends Controller
             'hs' => $hs
         ]);
     }
+
+    public function allow($id)
+    {
+        $hs = ChangeHours::where('id',$id)->first();
+        if (empty($hs))
+            return back()->with('error',"Инфо не находит");
+        $hs->update([
+            'status' => 1,
+        ]);
+        return back()->with('success',"Время изменено успешно");
+    }
+
+    public function cancel($id)
+    {
+        $hs = ChangeHours::where('id',$id)->first();
+        if (empty($hs))
+            return back()->with('error',"Инфо не находит");
+        $hs->update([
+            'status' => 2,
+        ]);
+        return back()->with('success',"Время изменено успешно");
+    }
 }
