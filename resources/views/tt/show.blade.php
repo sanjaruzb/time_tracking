@@ -56,7 +56,10 @@
                                             @if($f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'png' or $f->ext == 'gif' or $f->ext == 'bmp' or $f->ext == 'tiff' or $f->ext == 'tif' or $f->ext == 'webp' or $f->ext == 'svg' or $f->ext == 'jfif')
                                                 <img src="{{ asset("public/tt_files/".$f->name) }}" height="150px" width="150px" style="margin: 5px">
                                             @elseif($f->ext == 'pdf' or $f->ext == 'pdfa' or $f->ext == 'pdfx' or $f->ext == 'pdfe' or $f->ext == 'pdfua' or $f->ext == 'pdx')
-
+                                                <object data="{{ asset("public/tt_files/".$f->name) }}" type="application/pdf" width="150px" height="150px">
+                                                </object>
+                                                <a href="{{ asset("public/tt_files/".$f->name) }}" target="_blank">Показывать</a>
+                                                <a href="{{ route("employee.download-file",$f->name) }}">Скачать</a>
                                             @endif
 
                                         @endforeach

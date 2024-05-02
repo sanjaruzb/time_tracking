@@ -140,7 +140,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @can('change-working-hours')
+                                @can('employee-change-working-hours')
                                     <tr>
                                         <td>Изменить рабочее время по шаблону</td>
                                         <td>
@@ -183,7 +183,20 @@
                                             <br>
                                             {{mb_strlen($c->description) > 33 ? mb_substr($c->description,0,30) . ' ...' : $c->description }}
                                         </td>
-                                        <td>file</td>
+                                        <td>
+                                            file<br>
+                                            @foreach($c->files as $f)
+                                                @if($f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'png' or $f->ext == 'gif' or $f->ext == 'bmp' or $f->ext == 'tiff' or $f->ext == 'tif' or $f->ext == 'webp' or $f->ext == 'svg' or $f->ext == 'jfif')
+                                                    <img src="{{ asset("public/employee_files/".$f->name) }}" height="150px" width="150px" style="margin: 5px">
+                                                    <a href="{{ route("employee.download-file",$f->name) }}">Скачать</a>
+                                                @elseif($f->ext == 'pdf' or $f->ext == 'pdfa' or $f->ext == 'pdfx' or $f->ext == 'pdfe' or $f->ext == 'pdfua' or $f->ext == 'pdx')
+                                                    <object data="{{ asset("public/employee_files/".$f->name) }}" type="application/pdf" width="150px" height="150px">
+                                                    </object>
+                                                    <a href="{{ asset("public/employee_files/".$f->name) }}" target="_blank">Показывать</a>
+                                                    <a href="{{ route("employee.download-file",$f->name) }}">Скачать</a>
+                                                @endif
+                                            @endforeach
+                                        </td>
                                         <td>
                                             {{substr($c->created_at, 0, 10)}}
                                             <br>

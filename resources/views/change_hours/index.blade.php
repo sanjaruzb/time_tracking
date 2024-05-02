@@ -9,12 +9,23 @@
             </h3>
         </div>
         <div class="card-body">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
             <table id="dataTable" class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg" user="grid" aria-describedby="dataTable_info">
                 <thead>
                 <tr>
                     <th>Сотрудник</th>
                     <th>Описания</th>
-                    <th>Файл</th>
+                    <th class="">Файл</th>
                     <th>Новое время</th>
                     <th>Вступление в силу</th>
                     <th></th>
@@ -25,7 +36,24 @@
                         <tr>
                             <td>{{$c->user->fio}}<br>{{$c->user->department->name ?? ''}}</td>
                             <td>{{mb_strlen($c->description) > 33 ? mb_substr($c->description,0,30) . ' ...' : $c->description }}</td>
-                            <td>file</td>
+                            <td>
+                                @foreach($c->files as $f)
+                                    @if($f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'png' or $f->ext == 'gif' or $f->ext == 'bmp' or $f->ext == 'tiff' or $f->ext == 'tif' or $f->ext == 'webp' or $f->ext == 'svg' or $f->ext == 'jfif')
+                                        @if(file_exists(public_path("employee_files/".$f->name)))
+                                            <img src="{{ asset("public/employee_files/".$f->name) }}" height="150px" width="150px" style="margin: 5px">
+                                            <br>
+                                            <a href="{{ route("employee.download-file",$f->name) }}">Скачать</a>
+                                        @endif
+                                    @elseif($f->ext == 'pdf' or $f->ext == 'pdfa' or $f->ext == 'pdfx' or $f->ext == 'pdfe' or $f->ext == 'pdfua' or $f->ext == 'pdx')
+                                        @if(file_exists(public_path("employee_files/".$f->name)))
+                                            <object data="{{ asset("public/employee_files/".$f->name) }}" type="application/pdf" width="150px" height="150px">
+                                            </object> <br>
+                                            <a href="{{ asset("public/employee_files/".$f->name) }}" target="_blank">Показывать</a>
+                                            <a href="{{ route("employee.download-file",$f->name) }}">Скачать</a>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </td>
                             <td>
                                 @php($c->shift = json_decode($c->shift))
                                 <table id="dataTable" class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg" user="grid" aria-describedby="dataTable_info">
@@ -67,8 +95,13 @@
                             </td>
                             <td>{{$c->effective_date}}</td>
                             <td>
-                                <a href="" class="btn btn-success">Разрешить</a>
-                                <a href="" class="btn btn-primary">Отменить</a>
+                                @can('changehour-allow')
+                                    <a href="{{ route("change_hours.allow",$c->id) }}" class="btn btn-success">Разрешить</a>
+                                @endcan
+
+                                @can('changehour-cancel')
+                                    <a href="{{ route("change_hours.cancel",$c->id) }}" class="btn btn-primary">Отменить</a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
