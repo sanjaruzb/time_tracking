@@ -79,7 +79,7 @@
                 @can('change-hours-index')
                     <li class="nav-item">
                         <a href="{{ route('change_hours.index') }}" class="nav-link {{ Request::is('change-hours*') ? "active":'' }}">
-                            <i class="fa fa-users"></i>
+                            <i class="fa fa-clock"></i>
                             <p>Изменение рабочего времени</p>
                         </a>
                     </li>
