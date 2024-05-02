@@ -13,7 +13,7 @@
             </b>
         </div>
         <div class="card-body">
-            {!! Form::model($user, ['method' => 'POST','route' => ['employee.chane-template-submit']]) !!}
+            {!! Form::model($user, ['method' => 'POST','route' => ['employee.chane-template-submit'], 'enctype' => 'multipart/form-data']) !!}
             <div class="row">
                 <input type="hidden" name="id" value="{{$user->id}}">
                 <div class="col-xs-4 col-sm-4 col-md-4">
@@ -36,7 +36,7 @@
 
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" name="file" class="custom-file-input" id="exampleInputFile">
+                                <input type="file" name="file[]" multiple="multiple" class="custom-file-input" id="exampleInputFile">
                                 <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>
                             </div>
                             @if($errors->has('file'))

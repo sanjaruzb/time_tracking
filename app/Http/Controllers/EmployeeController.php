@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\ChangeHours;
 use App\Models\Department;
+use App\Models\File;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
@@ -180,18 +182,38 @@ class EmployeeController extends Controller
             'effective_date' => 'required',
         ]);
 
-        ChangeHours::create([
+        $hour = ChangeHours::create([
             'user_id' => $request->id,
             'description' => $request->info,
             'shift' => json_encode(ChangeHours::TEMPLATES[$request->template]),
             'status' => 0,
             'effective_date' => $request->effective_date,
         ]);
+        if ($request->hasFile('file')) {
+            foreach ($request->file as $f){
+                $file_name = date('Y_m_d_H_i_s').rand(10000, 99999).'.'.$f->getClientOriginalExtension();
+                $f->move(public_path('employee_files'), $file_name);
+                File::create([
+                    'model' => ChangeHours::class,
+                    'model_id' => $hour->id,
+                    'name' => $file_name,
+                    'ext' => $f->getClientOriginalExtension(),
+                ]);
+            }
+        }
+
 
         return redirect()->route('employee.show', $request->id)->with('success','Данные сохронены');
     }
 
-
+    public function download_file($file)
+    {
+        if (file_exists(public_path('employee_files/'.$file))) {
+            return Response::download(public_path('employee_files/'.$file));
+        } else {
+            return redirect()->back()->with('error', "Файл не найден.");
+        }
+    }
     public function change_individual($id){
         $user = User::where('id',$id)->first();
         return view('employee.change_individual',[

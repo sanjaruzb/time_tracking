@@ -76,4 +76,9 @@ class ChangeHours extends Model
     public function user(){
         return $this->hasOne(User::class,'id','user_id');
     }
+
+    public function files()
+    {
+        return $this->hasMany(File::class,'model_id','id')->where('model',self::class);
+    }
 }
