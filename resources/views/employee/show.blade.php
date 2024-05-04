@@ -131,7 +131,7 @@
                         </table>
 
                         <br>
-                        @canany(['change-working-hours','employee-edit'])
+                        @canany(['employee-change-template','employee-edit'])
                             <table id="dataTable" class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg" user="grid" aria-describedby="dataTable_info">
                                 <thead>
                                 <tr>
@@ -140,7 +140,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @can('employee-change-working-hours')
+                                @can('employee-change-template')
                                     <tr>
                                         <td>Изменить рабочее время по шаблону</td>
                                         <td>
