@@ -13,7 +13,7 @@ class CadreController extends Controller
     function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $actions = ['index', 'show', 'edit', 'update', 'destroy','changeStatus'];
+            $actions = ['index', 'show', 'edit', 'update', 'destroy','changeStatus', 'report'];
             foreach ($actions as $action) {
                 if ($request->route()->getActionMethod() === $action && !Gate::allows('cadre-' . $action)) {
                     abort(403);
@@ -120,6 +120,10 @@ class CadreController extends Controller
             'status' => $status,
         ]);
         return redirect()->back()->with('success', 'Статус изменена успешно');
+    }
+
+    public function report(){
+        return view('cadre.report');
     }
 
 
