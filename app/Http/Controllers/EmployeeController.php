@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\File;
 use App\Models\Position;
 use App\Models\User;
+use App\Models\Weekend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
@@ -175,13 +176,15 @@ class EmployeeController extends Controller
 
     public function change_template_submit(Request $request){
 
-        $this->validate($request, [
+        $validated = Validator::make($request->all(), [
             'id' => 'required',
             'template' => 'required',
             'info' => 'required',
             'effective_date' => 'required',
         ]);
-
+        if ($validated->fails()){
+            return back()->withInput()->withErrors($validated);
+        }
         $hour = ChangeHours::create([
             'user_id' => $request->id,
             'description' => $request->info,
@@ -206,14 +209,7 @@ class EmployeeController extends Controller
         return redirect()->route('employee.show', $request->id)->with('success','Данные сохронены');
     }
 
-    public function download_file($file)
-    {
-        if (file_exists(public_path('employee_files/'.$file))) {
-            return Response::download(public_path('employee_files/'.$file));
-        } else {
-            return redirect()->back()->with('error', "Файл не найден.");
-        }
-    }
+
     public function change_individual($id){
         $user = User::where('id',$id)->first();
         return view('employee.change_individual',[
@@ -224,13 +220,15 @@ class EmployeeController extends Controller
 
     public function change_individual_submit(Request $request){
 
-        $this->validate($request, [
+        $validated = Validator::make($request->all(), [
             'id' => 'required',
             'template.*' => 'required',
             'info' => 'required',
             'effective_date' => 'required',
         ]);
-
+        if ($validated->fails()){
+            return back()->withInput()->withErrors($validated);
+        }
         ChangeHours::create([
             'user_id' => $request->id,
             'description' => $request->info,
@@ -240,5 +238,62 @@ class EmployeeController extends Controller
         ]);
 
         return redirect()->route('employee.show', $request->id)->with('success','Данные сохронены');
+    }
+
+    public function additional_date($id)
+    {
+        $user = User::where('id',$id)->first();
+        return view('employee.additional_date',[
+            'user' => $user
+        ]);
+    }
+
+    public function additional_date_submit(Request $request)
+    {
+
+        $validated = Validator::make($request->all(), [
+            'id' => 'required',
+            'come_date' => 'required|date_format:Y-m-d',
+            'come_time' => 'required',
+            'left_date' => 'required|date_format:Y-m-d',
+            'left_time' => 'required',
+        ]);
+        if ($validated->fails()){
+            return back()->withInput()->withErrors($validated);
+        }
+        $wekend = Weekend::create([
+            'user_id' => $request->id,
+            'come' => $request->come_date,
+            'come_time' => $request->come_time,
+            'left' => $request->left_date,
+            'left_time' => $request->left_time,
+            'description' => $request->description,
+            'status' => 0,
+        ]);
+
+        if ($request->hasFile('file')) {
+            foreach ($request->file as $f){
+                $file_name = date('Y_m_d_H_i_s').rand(10000, 99999).'.'.$f->getClientOriginalExtension();
+                $f->move(public_path('employee_files'), $file_name);
+                File::create([
+                    'model' => Weekend::class,
+                    'model_id' => $wekend->id,
+                    'name' => $file_name,
+                    'ext' => $f->getClientOriginalExtension(),
+                ]);
+            }
+        }
+
+        return redirect()->route('employee.show', $request->id)->with('success','Данные сохронены');
+
+    }
+
+    public function download_file($file)
+    {
+        if (file_exists(public_path('employee_files/'.$file))) {
+            return Response::download(public_path('employee_files/'.$file));
+        } else {
+            return redirect()->back()->with('error', "Файл не найден.");
+        }
     }
 }
