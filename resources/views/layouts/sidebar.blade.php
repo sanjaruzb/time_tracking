@@ -37,7 +37,6 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @dump(Request::is('cadre*'))
                             @can('cadre-index')
                                 <li class="nav-item">
                                     <a href="{{ route('cadre.index') }}" class="nav-link {{ Request::is('cadre') ? 'active' : '' }}">
