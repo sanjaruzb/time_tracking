@@ -11,9 +11,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('employee', \App\Http\Controllers\EmployeeController::class);
     Route::get('/employee/chane-template/{id}', '\App\Http\Controllers\EmployeeController@change_template');
     Route::post('/employee/chane-template-submit', '\App\Http\Controllers\EmployeeController@change_template_submit')->name('employee.chane-template-submit');
-    Route::get('/employee/download-file/{file}', '\App\Http\Controllers\EmployeeController@download_file')->name('employee.download-file');
     Route::get('/employee/chane-individual/{id}', '\App\Http\Controllers\EmployeeController@change_individual');
     Route::post('/employee/chane-individual-submit', '\App\Http\Controllers\EmployeeController@change_individual_submit')->name('employee.chane-individual-submit');
+    Route::get('/employee/additional-date/{id}', '\App\Http\Controllers\EmployeeController@additional_date');
+    Route::post('/employee/additional-date-submit', '\App\Http\Controllers\EmployeeController@additional_date_submit')->name('employee.additional-date-submit');
+    Route::get('/employee/download-file/{file}', '\App\Http\Controllers\EmployeeController@download_file')->name('employee.download-file');
 
     Route::resource('department', \App\Http\Controllers\DepartmentController::class);
     Route::resource('position', \App\Http\Controllers\PositionController::class);

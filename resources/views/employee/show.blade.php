@@ -154,6 +154,13 @@
                                             <a href="/employee/chane-individual/{{$user->id}}" class="btn btn-primary">action</a>
                                         </td>
                                     </tr>
+
+                                    <tr>
+                                        <td>Дополнительная работа</td>
+                                        <td>
+                                            <a href="/employee/additional-date/{{$user->id}}" class="btn btn-primary">action</a>
+                                        </td>
+                                    </tr>
                                 @endcan
                                 @can('employee-edit')
                                     <tr>
