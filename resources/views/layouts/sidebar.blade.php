@@ -28,11 +28,34 @@
                 @endcan
 
                 @can('cadre-index')
-                    <li class="nav-item">
-                        <a href="{{ route("cadre.index") }}" class="nav-link {{ Request::is('cadre*') ? "active":'' }}">
-                            <i class="fa fa-person-booth"></i>
-                            <p>Кадр</p>
+                    <li class="nav-item {{ Request::is('cadre*') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-cog"></i>
+                            <p>
+                                Кадр
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            @dump(Request::is('cadre*'))
+                            @can('cadre-index')
+                                <li class="nav-item">
+                                    <a href="{{ route('cadre.index') }}" class="nav-link {{ Request::is('cadre') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Сегодня</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('cadre-report')
+                                <li class="nav-item">
+                                    <a href="{{ route('cadre.report') }}" class="nav-link {{ Request::is('cadre/report') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Отчет</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
                     </li>
                 @endcan
 

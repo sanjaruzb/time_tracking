@@ -25,7 +25,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('tt', \App\Http\Controllers\TtController::class);
 
     Route::resource('cadre', \App\Http\Controllers\CadreController::class);
-    Route::get('cadre/changestatus/{id}/{status}',[\App\Http\Controllers\CadreController::class,'changeStatus'])->name('ttChangeStatus');
+    Route::get('cadre/report', '\App\Http\Controllers\CadreController@report')->name('cadre.report');
+
+    Route::get('cadre/changestatus/{id}/{status}','\App\Http\Controllers\CadreController@changeStatus')->name('ttChangeStatus');
 
     Route::get('/change-hours/index', '\App\Http\Controllers\ChangeHoursController@index')->name('change_hours.index');
     Route::get('/change-hours/allow/{id}', '\App\Http\Controllers\ChangeHoursController@allow')->name('change_hours.allow');
