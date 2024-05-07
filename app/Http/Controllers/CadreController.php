@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use App\Models\Tt;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -122,8 +123,45 @@ class CadreController extends Controller
         return redirect()->back()->with('success', 'Статус изменена успешно');
     }
 
-    public function report(){
-        return view('cadre.report');
+    public function report(Request $request){
+
+        $count = date('t');
+
+        $days = [];
+
+        $mon = date('Y-m-');
+
+        for ($i = 1; $i <= $count; $i++){
+            $date = $mon . str_pad($i, 2, '0', STR_PAD_LEFT);
+            $dam = (int)(date('w', strtotime($date)));
+            $days[] = [
+                'day' => $date,
+                'style' => ($dam == 0 || $dam == 6) ? "background-color: rgb(0 50 255 / 69%);" : ""
+            ];
+        }
+
+
+        $employees = User::select(
+            'users.id as id',
+            'users.firstname as firstname',
+            'users.fio as fio',
+            'users.date_entry as date_entry',
+            'users.position_id as position_id',
+            'users.department_id as department_id',
+            'users.number as number',
+        )
+            ->filter($request->only('fio','date_entry','department_id','position_id','status'))
+            ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->where('roles.name', 'Employee')
+            ->where('model_has_roles.model_type', User::class)
+            ->whereNotNull('number')
+            ->latest('users.updated_at')
+            ->paginate(20);
+        return view('cadre.report',[
+            'days' => $days,
+            'employees' => $employees,
+        ]);
     }
 
 
