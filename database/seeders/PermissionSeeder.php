@@ -119,6 +119,10 @@ class PermissionSeeder extends Seeder
             ['name' => 'changehour-index'],
             ['name' => 'changehour-allow'],
             ['name' => 'changehour-cancel'],
+            // Weekend
+            ['name' => 'weekend-index'],
+            ['name' => 'weekend-allow'],
+            ['name' => 'weekend-cancel'],
         ];
         foreach ($permissionList as $item => $value){
             Permission::create($value);

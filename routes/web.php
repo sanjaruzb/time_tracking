@@ -35,4 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/change-hours/allow/{id}', '\App\Http\Controllers\ChangeHoursController@allow')->name('change_hours.allow');
     Route::get('/change-hours/cancel/{id}', '\App\Http\Controllers\ChangeHoursController@cancel')->name('change_hours.cancel');
 
+    Route::get('/weekend/index', '\App\Http\Controllers\WeekendController@index')->name('weekend.index');
+    Route::get('/weekend/allow/{id}', '\App\Http\Controllers\WeekendController@allow')->name('weekend.allow');
+    Route::get('/weekend/cancel/{id}', '\App\Http\Controllers\WeekendController@cancel')->name('weekend.cancel');
 });

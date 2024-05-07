@@ -252,6 +252,54 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <br>
+                        <table id="dataTable" class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg" user="grid" aria-describedby="dataTable_info">
+                            <thead>
+                            <tr>
+                                <th colspan="4">История дополнительная работа</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @if(count($user->weekends))
+                                    <tr>
+                                        <td>Статус</td>
+                                        <td>Файлы</td>
+                                        <td>Коммент</td>
+                                        <td>Начало</td>
+                                        <td>Конец</td>
+                                    </tr>
+                                @endif
+                            @foreach($user->weekends as $w)
+                                <tr>
+                                    <td>
+                                        <b class="badge bg-warning">{{$w->status_name()}}</b>
+                                    </td>
+                                    <td>
+                                        @foreach($w->files as $f)
+                                            @if($f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'jpeg' or $f->ext == 'jpg' or $f->ext == 'png' or $f->ext == 'gif' or $f->ext == 'bmp' or $f->ext == 'tiff' or $f->ext == 'tif' or $f->ext == 'webp' or $f->ext == 'svg' or $f->ext == 'jfif')
+                                                <img src="{{ asset("public/weekend_files/".$f->name) }}" height="150px" width="150px" style="margin: 5px">
+                                                <a href="{{ route("employee.download-file",$f->name) }}">Скачать</a>
+                                            @elseif($f->ext == 'pdf' or $f->ext == 'pdfa' or $f->ext == 'pdfx' or $f->ext == 'pdfe' or $f->ext == 'pdfua' or $f->ext == 'pdx')
+                                                <object data="{{ asset("public/weekend_files/".$f->name) }}" type="application/pdf" width="150px" height="150px">
+                                                </object>
+                                                <a href="{{ asset("public/weekend_files/".$f->name) }}" target="_blank">Показывать</a>
+                                                <a href="{{ route("employee.download-file",$f->name) }}">Скачать</a>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        {{mb_strlen($w->description) > 33 ? mb_substr($w->description,0,30) . ' ...' : $w->description }}
+                                    </td>
+                                    <td>
+                                        {{ $w->come }} {{ date("H:i", strtotime($w->come_time)) }}
+                                    </td>
+                                    <td>
+                                        {{ $w->left }} {{ date("H:i", strtotime($w->left_time)) }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>

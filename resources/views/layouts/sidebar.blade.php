@@ -107,6 +107,15 @@
                     </li>
                 @endcan
 
+                @can('weekend-index')
+                    <li class="nav-item">
+                        <a href="{{ route('weekend.index') }}" class="nav-link {{ Request::is('weekend*') ? "active":'' }}">
+                            <i class="fa fa-clock"></i>
+                            <p>Изменение дополнительная работа</p>
+                        </a>
+                    </li>
+                @endcan
+
                 @can('department-index')
                     <li class="nav-item">
                         <a href="{{ route('department.index') }}" class="nav-link {{ Request::is('department*') ? "active":'' }}">
