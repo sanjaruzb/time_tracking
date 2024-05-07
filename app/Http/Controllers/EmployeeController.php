@@ -267,14 +267,14 @@ class EmployeeController extends Controller
             'come_time' => $request->come_time,
             'left' => $request->left_date,
             'left_time' => $request->left_time,
-            'description' => $request->description,
+            'description' => $request->info,
             'status' => 0,
         ]);
 
         if ($request->hasFile('file')) {
             foreach ($request->file as $f){
                 $file_name = date('Y_m_d_H_i_s').rand(10000, 99999).'.'.$f->getClientOriginalExtension();
-                $f->move(public_path('employee_files'), $file_name);
+                $f->move(public_path('weekend_files'), $file_name);
                 File::create([
                     'model' => Weekend::class,
                     'model_id' => $wekend->id,

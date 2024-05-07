@@ -115,7 +115,12 @@ class User extends Authenticatable
     }
 
     public function change_hours(){
-        return $this->hasMany(ChangeHours::class);
+        return $this->hasMany(ChangeHours::class)->orderByDesc('id');
+    }
+
+    public function weekends()
+    {
+        return $this->hasMany(Weekend::class)->orderByDesc('id');
     }
 
     public function gender_text(){
