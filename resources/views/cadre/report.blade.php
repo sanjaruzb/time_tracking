@@ -12,6 +12,7 @@
                 <div class="card">
                     <div class="card-header no-print">
                         <h3 class="card-title">Отчет</h3>
+
                         <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal"
                                 data-target="#employee_filter" style="margin-right: 5px">
                             <span class="fas fa-filter"></span> Фильтр
@@ -49,7 +50,7 @@
                                             <br>{{ $employee->department->name  }}
                                         @endif
                                     </td>
-                                    @php($temp = $employee->month_tt())
+                                    @php($temp = $employee->month_tt($mon))
                                     @php($statuses = [
                                         1 => 'badge badge-danger',
                                         -1 => 'badge badge-danger',
@@ -93,6 +94,32 @@
                                     {!! Form::open(['method'=>'GET']) !!}
                                     <div class="modal-body">
                                         <div class="row">
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>Мясец</strong>
+                                                    @php($arr = [
+                                                      '01'=>'январь',
+                                                      '02'=>'февраль',
+                                                      '03'=>'март',
+                                                      '04'=>'апрель',
+                                                      '05'=>'май',
+                                                      '06'=>'июнь',
+                                                      '07'=>'июль',
+                                                      '08'=>'август',
+                                                      '09'=>'сентябрь',
+                                                      '10'=>'октябрь',
+                                                      '11'=>'ноябрь',
+                                                      '12'=>'декабрь'
+                                                    ])
+                                                    <select maxlength="100" class="form-control" name="month">
+                                                        @foreach($months as $m)
+                                                            <option value="{{$m}}" {{$m == $mon ? 'selected' : ''}}>{{$arr[substr($m, 5,2)]}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Ф.И.О:</strong>

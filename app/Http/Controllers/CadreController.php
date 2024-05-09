@@ -111,6 +111,30 @@ class CadreController extends Controller
 
         $mon = date('Y-m-');
 
+        $last  = (int)date('m', strtotime($mon . '01'));
+
+        $year = date('Y');
+        $minusyear = date('Y', strtotime('-1 year'));
+
+        $a = [
+            1=>'11',
+            2=>'12',
+        ];
+        $b = [
+            1=>'12'
+        ];
+
+        $months = [
+            0 => ($last < 3 ? $minusyear : $year) . '-' . ($a[$last] ?? str_pad($last-2, 2, '0', 0)) . '-',
+            1 => ($last < 2 ? $minusyear : $year) . '-' . ($b[$last] ?? str_pad($last-1, 2, '0', 0)) . '-',
+            2 => $mon,
+        ];
+
+        if($request->month){
+            $mon = $request->month;
+        }
+
+
         for ($i = 1; $i <= $count; $i++){
             $date = $mon . str_pad($i, 2, '0', STR_PAD_LEFT);
             $dam = (int)(date('w', strtotime($date)));
@@ -138,9 +162,14 @@ class CadreController extends Controller
             ->whereNotNull('number')
             ->latest('users.updated_at')
             ->paginate(20);
+
+
+
         return view('cadre.report',[
             'days' => $days,
             'employees' => $employees,
+            'months' => $months,
+            'mon' => $mon,
         ]);
     }
 

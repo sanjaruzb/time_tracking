@@ -127,7 +127,7 @@ class User extends Authenticatable
         return self::$genders[$this->gender];
     }
 
-    public function month_tt($month = '2024-05'){
+    public function month_tt($month){
         $tts = Tt::where([
             'number' => $this->number,
             ['auth_date', 'LIKE', $month . '%']
