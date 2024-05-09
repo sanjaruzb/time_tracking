@@ -46,6 +46,24 @@
                                 </li>
                             @endcan
 
+                            @can('cadre-weekend')
+                                <li class="nav-item">
+                                    <a href="{{ route('cadre.weekend') }}" class="nav-link {{ Request::is('cadre/weekend') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Выходные</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('cadre-all')
+                                <li class="nav-item">
+                                    <a href="{{ route('cadre.all') }}" class="nav-link {{ Request::is('cadre/all') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Все</p>
+                                    </a>
+                                </li>
+                            @endcan
+
                             @can('cadre-report')
                                 <li class="nav-item">
                                     <a href="{{ route('cadre.report') }}" class="nav-link {{ Request::is('cadre/report') ? 'active' : '' }}">

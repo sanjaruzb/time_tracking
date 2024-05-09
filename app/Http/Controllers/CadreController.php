@@ -14,7 +14,7 @@ class CadreController extends Controller
     function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $actions = ['index', 'show', 'edit', 'update', 'destroy','changeStatus', 'report'];
+            $actions = ['index', 'show', 'edit', 'update', 'destroy','changeStatus', 'report', 'weekend','all'];
             foreach ($actions as $action) {
                 if ($request->route()->getActionMethod() === $action && !Gate::allows('cadre-' . $action)) {
                     abort(403);
@@ -36,18 +36,6 @@ class CadreController extends Controller
         if($request->track){
             $tts = $tts->where('track',$request->track);
         }
-        if ($request->auth_date_from){
-            $tts = $tts->where('auth_date',$request->auth_date_from_type,$request->auth_date_from);
-        }
-        if($request->auth_date_to){
-            $tts = $tts->where('auth_date',$request->auth_date_to_type,$request->auth_date_to);
-        }
-        if($request->auth_time_from){
-            $tts = $tts->where('auth_time',$request->auth_time_from_type,$request->auth_time_from);
-        }
-        if($request->auth_time_to){
-            $tts = $tts->where('auth_time',$request->auth_time_to_type,$request->auth_time_to);
-        }
         if($request->status){
             $tts = $tts->where('status',$request->status);
         }
@@ -56,16 +44,8 @@ class CadreController extends Controller
         }
         $tts = $tts->where('status', 0)->where('auth_date', date('Y-m-d'));
         $tts = $tts->paginate(40);
-        $types = [
-            '=' => '=',
-            '>' => '>',
-            '<' => '<',
-            '>=' => '>=',
-            '<=' => '<=',
-        ];
         return view('cadre.index',[
             'tts' => $tts,
-            'types' => $types,
         ]);
     }
 
@@ -164,5 +144,81 @@ class CadreController extends Controller
         ]);
     }
 
+    public function weekend(Request $request)
+    {
+        $start = strtotime($request->start_date ? $request->start_date : date("Y-m-01"));
+        $end =  strtotime($request->end_date ? $request->end_date : date("Y-m-t"));
+        $weekends = [];
+        for ($day = $start; $day <= $end; $day = strtotime("+1 day", $day)) {
+            if (date("N", $day) == 6 || date("N", $day) == 7) {
+                $weekends[] = date("Y-m-d", $day);
+            }
+        }
+
+        $tts = Tt::whereIn('auth_date',$weekends)->latest();
+        if ($request->number){
+            $tts = $tts->where('number',$request->number);
+        }
+        if($request->name){
+            $tts = $tts->where('name','LIKE',"%{$request->name}%");
+        }
+        if($request->track){
+            $tts = $tts->where('track',$request->track);
+        }
+        if(isset($request->status)){
+            $tts = $tts->where('status',$request->status);
+        }
+        if($request->arrival_status){
+            $tts = $tts->where('arrival_status',$request->arrival_status);
+        }
+        $tts = $tts->paginate(40);
+        return view("cadre.weekend",[
+            'tts' => $tts,
+        ]);
+    }
+
+    public function all(Request $request)
+    {
+        $tts = Tt::with('user')->latest();
+        if ($request->number){
+            $tts = $tts->where('number',$request->number);
+        }
+        if($request->name){
+            $tts = $tts->where('name','LIKE',"%{$request->name}%");
+        }
+        if($request->track){
+            $tts = $tts->where('track',$request->track);
+        }
+        if ($request->auth_date_from){
+            $tts = $tts->where('auth_date',$request->auth_date_from_type,$request->auth_date_from);
+        }
+        if($request->auth_date_to){
+            $tts = $tts->where('auth_date',$request->auth_date_to_type,$request->auth_date_to);
+        }
+        if($request->auth_time_from){
+            $tts = $tts->where('auth_time',$request->auth_time_from_type,$request->auth_time_from);
+        }
+        if($request->auth_time_to){
+            $tts = $tts->where('auth_time',$request->auth_time_to_type,$request->auth_time_to);
+        }
+        if($request->status){
+            $tts = $tts->where('status',$request->status);
+        }
+        if($request->arrival_status){
+            $tts = $tts->where('arrival_status',$request->arrival_status);
+        }
+        $tts = $tts->where('status', 0)->paginate(40);
+        $types = [
+            '=' => '=',
+            '>' => '>',
+            '<' => '<',
+            '>=' => '>=',
+            '<=' => '<=',
+        ];
+        return view('cadre.index',[
+            'tts' => $tts,
+            'types' => $types,
+        ]);
+    }
 
 }

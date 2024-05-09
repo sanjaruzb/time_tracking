@@ -108,6 +108,20 @@
                                     {!! Form::open(['method'=>'GET']) !!}
                                     <div class="modal-body">
                                         <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Start Date:</strong>
+                                                    {!! Form::text('start_date', request()->get('start_date'), ['placeholder' => 'Y-m-d','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <strong>End Date:</strong>
+                                                    {!! Form::text('end_date', request()->get('end_date'), ['placeholder' => 'Y-m-d','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Номер:</strong>
@@ -121,7 +135,6 @@
                                                     {!! Form::text('name', request()->get('name'), ['placeholder' => 'Ф.И.О','maxlength'=> 100,'class' => 'form-control']) !!}
                                                 </div>
                                             </div>
-
 
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
