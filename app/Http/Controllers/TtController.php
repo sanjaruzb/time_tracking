@@ -85,8 +85,8 @@ class TtController extends Controller
                 $role = Role::where(['name' => 'Employee'])->first();
                 $temp->assignRole([$role->id]);
 
-                $today_k = 'day' . date('w') . '_1';
-                $today_c = 'day' . date('w') . '_2';
+                $today_k = 'day' . date('w', strtotime($a[6])) . '_1';
+                $today_c = 'day' . date('w', strtotime($a[6])) . '_2';
 
 
                 if(strlen($a[9]) > 7){
@@ -97,7 +97,7 @@ class TtController extends Controller
                     ],[
                         'name' => $a[2],
                         'auth_time' => $a[9],
-                        'arrival_status' => strtotime('1970-01-01 ' . $a[9]) < strtotime('1970-01-01 ' . $temp->$today_k) ? 2 : 3
+                        'arrival_status' => strtotime('1970-01-01 ' . $a[9]) < strtotime('1970-01-01 ' . ($temp->$today_k ?: '00:00:00')) ? 2 : 3
                     ]);
                 }
                 if(strlen($a[10]) > 7) {
@@ -108,7 +108,7 @@ class TtController extends Controller
                     ], [
                         'name' => $a[2],
                         'auth_time' => $a[10],
-                        'arrival_status' => strtotime('1970-01-01 ' . $a[10]) > strtotime('1970-01-01 ' . $temp->$today_c) ? -2 : -3
+                        'arrival_status' => strtotime('1970-01-01 ' . $a[10]) > strtotime('1970-01-01 ' . ($temp->$today_c ?: '23:59:59')) ? -2 : -3
                     ]);
                 }
             }

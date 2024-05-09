@@ -13,7 +13,7 @@ class TtGenerate extends Command
      *
      * @var string
      */
-    protected $signature = 'tt-generate';
+    protected $signature = 'tt-generate {date?}';
 
     /**
      * The console command description.
@@ -27,6 +27,18 @@ class TtGenerate extends Command
      */
     public function handle()
     {
+
+        $date = $this->argument('date');
+        if (!$date)
+            $date = date('Y-m-d');
+        else if(!checkdate(substr($date, 5, 2), substr($date, 8, 2), substr($date, 0, 4))) {
+            dump("Noto'g'ri sana kiritilgan");
+            return 0;
+        }
+        elseif(date('w', strtotime($date)) % 6 == 0){
+            dump("Shanba yoki Yakshanba");
+            return 0;
+        }
         ini_set('max_execution_time', 600);
         $users = User::select(['number', 'fio'])->get();
 
@@ -34,7 +46,7 @@ class TtGenerate extends Command
             if($u->number){
                 Tt::firstOrCreate([
                     'number' => $u->number,
-                    'auth_date' => date('Y-m-d'),
+                    'auth_date' => $date,
                     'track' => Tt::$kirish,
                 ],[
                     'name' => $u->fio,
@@ -44,7 +56,7 @@ class TtGenerate extends Command
 
                 Tt::firstOrCreate([
                     'number' => $u->number,
-                    'auth_date' => date('Y-m-d'),
+                    'auth_date' => $date,
                     'track' => Tt::$chiqish,
                 ],[
                     'name' => $u->fio,
