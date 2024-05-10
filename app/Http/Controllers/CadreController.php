@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\File;
+use App\Models\Position;
 use App\Models\Tt;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -154,22 +156,24 @@ class CadreController extends Controller
             'users.department_id as department_id',
             'users.number as number',
         )
-            ->filter($request->only('fio','date_entry','department_id','position_id','status'))
+            ->filter($request->only('firstname','lastname','number','fio','date_entry','department_id','position_id','status'))
             ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
             ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
             ->where('roles.name', 'Employee')
             ->where('model_has_roles.model_type', User::class)
-            ->whereNotNull('number')
-            ->latest('users.updated_at')
-            ->paginate(20);
+            ->whereNotNull('number');
 
 
-
+        $employees = $employees->latest('users.updated_at')->paginate(20);
+        $positions = Position::latest()->get()->pluck('name','id');
+        $departments = Department::latest()->get()->pluck('name','id');
         return view('cadre.report',[
             'days' => $days,
             'employees' => $employees,
             'months' => $months,
             'mon' => $mon,
+            'positions' => $positions,
+            'departments' => $departments,
         ]);
     }
 

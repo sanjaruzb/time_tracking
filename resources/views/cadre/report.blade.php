@@ -94,8 +94,42 @@
                                     {!! Form::open(['method'=>'GET']) !!}
                                     <div class="modal-body">
                                         <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Имя:</strong>
+                                                    {!! Form::text('firstname', request()->get('firstname'), ['placeholder' => 'Имя','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Фамилия:</strong>
+                                                    {!! Form::text('lastname', request()->get('lastname'), ['placeholder' => 'Фамилия','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
 
                                             <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>Номер:</strong>
+                                                    {!! Form::text('number', request()->get('number'), ['placeholder' => 'Номер','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>Должность:</strong>
+                                                    {!! Form::select('position_id', $positions,request()->get('position_id'), ['placeholder' => '','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>цех/отдел:</strong>
+                                                    {!! Form::select('department_id', $departments,request()->get('department_id'), ['placeholder' => '','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            {{--<div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Мясец</strong>
                                                     @php($arr = [
@@ -118,28 +152,28 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div>--}}
 
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                            {{--<div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Ф.И.О:</strong>
                                                     {!! Form::text('fio', request()->get('fio'), ['placeholder' => 'Ф.И.О','maxlength'=> 100,'class' => 'form-control']) !!}
                                                 </div>
-                                            </div>
+                                            </div>--}}
 
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                            {{--<div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Дата:</strong>
                                                     {!! Form::date('date_entry', request()->get('date_entry'), ['placeholder' => 'Дата','maxlength'=> 100,'class' => 'form-control']) !!}
                                                 </div>
-                                            </div>
+                                            </div>--}}
 
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                            {{--<div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Статус:</strong>
                                                     {!! Form::select('status', \App\Helpers\StatusHelper::$commonStatus,request()->get('status'), ['placeholder' => '','maxlength'=> 100,'class' => 'form-control']) !!}
                                                 </div>
-                                            </div>
+                                            </div>--}}
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
