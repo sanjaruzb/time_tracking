@@ -6,6 +6,7 @@ use App\Imports\Report;
 use App\Models\Department;
 use App\Models\Tt;
 use App\Models\User;
+use App\Models\Weekend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
@@ -88,28 +89,55 @@ class TtController extends Controller
                 $today_k = 'day' . date('w', strtotime($a[6])) . '_1';
                 $today_c = 'day' . date('w', strtotime($a[6])) . '_2';
 
+                if ($today_k == 'day6_1' or $today_k == 'day7_1' or $today_c == "day6_2" or $today_c == "day7_2"){
+                    $weekend_k = Weekend::where('come',$a[6])->where('user_id',$temp->id)->where('status',1)->first();
+                    if (!empty($weekend_k) and strlen($a[9]) > 7) {
+                        Tt::updateOrCreate([
+                            'number' => $a[1],
+                            'auth_date' => $a[6],
+                            'track' => Tt::$kirish,
+                        ], [
+                            'name' => $a[2],
+                            'auth_time' => $a[9],
+                            'arrival_status' => strtotime('1970-01-01 ' . $a[9]) < strtotime('1970-01-01 ' . ($weekend_k->come." ".$weekend_k->come_time) ?: '00:00:00') ? 3 : 2
+                        ]);
+                    }
 
-                if(strlen($a[9]) > 7){
-                    Tt::updateOrCreate([
-                        'number' => $a[1],
-                        'auth_date' => $a[6],
-                        'track' => Tt::$kirish,
-                    ],[
-                        'name' => $a[2],
-                        'auth_time' => $a[9],
-                        'arrival_status' => strtotime('1970-01-01 ' . $a[9]) < strtotime('1970-01-01 ' . ($temp->$today_k ?: '00:00:00')) ? 2 : 3
-                    ]);
-                }
-                if(strlen($a[10]) > 7) {
-                    Tt::updateOrCreate([
-                        'number' => $a[1],
-                        'auth_date' => $a[6],
-                        'track' => Tt::$chiqish,
-                    ], [
-                        'name' => $a[2],
-                        'auth_time' => $a[10],
-                        'arrival_status' => strtotime('1970-01-01 ' . $a[10]) > strtotime('1970-01-01 ' . ($temp->$today_c ?: '23:59:59')) ? -2 : -3
-                    ]);
+                    $weekend_c = Weekend::where('left',$a[6])->where('user_id',$temp->id)->where('status',1)->first();
+                    if (!empty($weekend_c) and strlen($a[10]) > 7) {
+                        Tt::updateOrCreate([
+                            'number' => $a[1],
+                            'auth_date' => $a[6],
+                            'track' => Tt::$chiqish,
+                        ], [
+                            'name' => $a[2],
+                            'auth_time' => $a[10],
+                            'arrival_status' => strtotime($a[6].' '.$a[10]) < strtotime($weekend_c->left." ".$weekend_c->left_time) ? -3 : -2
+                        ]);
+                    }
+                }else{
+                    if(strlen($a[9]) > 7){
+                        Tt::updateOrCreate([
+                            'number' => $a[1],
+                            'auth_date' => $a[6],
+                            'track' => Tt::$kirish,
+                        ],[
+                            'name' => $a[2],
+                            'auth_time' => $a[9],
+                            'arrival_status' => strtotime('1970-01-01 ' . $a[9]) < strtotime('1970-01-01 ' . ($temp->$today_k ?: '00:00:00')) ? 2 : 3
+                        ]);
+                    }
+                    if(strlen($a[10]) > 7) {
+                        Tt::updateOrCreate([
+                            'number' => $a[1],
+                            'auth_date' => $a[6],
+                            'track' => Tt::$chiqish,
+                        ], [
+                            'name' => $a[2],
+                            'auth_time' => $a[10],
+                            'arrival_status' => strtotime('1970-01-01 ' . $a[10]) > strtotime('1970-01-01 ' . ($temp->$today_c ?: '23:59:59')) ? -2 : -3
+                        ]);
+                    }
                 }
             }
         }
