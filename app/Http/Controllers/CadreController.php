@@ -44,10 +44,24 @@ class CadreController extends Controller
         if($request->arrival_status){
             $tts = $tts->where('arrival_status',$request->arrival_status);
         }
+        if ($request->department_id){
+            $tts = $tts->whereHas('user', function ($query) use ($request){
+                $query->where('department_id', $request->department_id);
+            });
+        }
+        if ($request->position_id){
+            $tts = $tts->whereHas('user', function ($query) use ($request){
+                $query->where('position_id', $request->position_id);
+            });
+        }
         $tts = $tts->where('status', 0)->where('auth_date', date('Y-m-d'));
         $tts = $tts->paginate(40);
+        $positions = Position::latest()->get()->pluck('name','id');
+        $departments = Department::latest()->get()->pluck('name','id');
         return view('cadre.index',[
             'tts' => $tts,
+            'positions' => $positions,
+            'departments' => $departments,
         ]);
     }
 
@@ -86,6 +100,8 @@ class CadreController extends Controller
         }
         Tt::where('id',$id)->update([
             'info' => $request->info,
+            'difference' => $request->difference,
+            'info_type' => $request->info_type,
         ]);
         return redirect()->route('cadre.show', $id)->with('success', 'Информация изменена успешно');
     }
@@ -222,6 +238,9 @@ class CadreController extends Controller
         if($request->track){
             $tts = $tts->where('track',$request->track);
         }
+        if($request->auth_date){
+            $tts = $tts->where('auth_date',$request->auth_date);
+        }
         if ($request->auth_date_from){
             $tts = $tts->where('auth_date',$request->auth_date_from_type,$request->auth_date_from);
         }
@@ -240,6 +259,22 @@ class CadreController extends Controller
         if($request->arrival_status){
             $tts = $tts->where('arrival_status',$request->arrival_status);
         }
+        if ($request->department_id){
+            $tts = $tts->whereHas('user', function ($query) use ($request){
+                $query->where('department_id', $request->department_id);
+            });
+        }
+        if ($request->department_id){
+            $tts = $tts->whereHas('user', function ($query) use ($request){
+                $query->where('department_id', $request->department_id);
+            });
+        }
+        if ($request->position_id){
+            $tts = $tts->whereHas('user', function ($query) use ($request){
+                $query->where('position_id', $request->position_id);
+            });
+        }
+
         $tts = $tts->where('status', 0)->paginate(40);
         $types = [
             '=' => '=',
@@ -248,9 +283,13 @@ class CadreController extends Controller
             '>=' => '>=',
             '<=' => '<=',
         ];
-        return view('cadre.index',[
+        $positions = Position::latest()->get()->pluck('name','id');
+        $departments = Department::latest()->get()->pluck('name','id');
+        return view('cadre.all',[
             'tts' => $tts,
             'types' => $types,
+            'positions' => $positions,
+            'departments' => $departments,
         ]);
     }
 

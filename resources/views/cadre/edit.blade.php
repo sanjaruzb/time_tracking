@@ -14,6 +14,16 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <label for="difference"><strong>Разница:</strong></label>
+                                    {!! Form::number('difference', null, ['autocomplete'=>'OFF','id'=>'difference','placeholder' => 'Разница','class' => "form-control ".($errors->has('difference') ? 'is-invalid' : '')]) !!}
+                                    @if($errors->has('difference'))
+                                        <span class="error invalid-feedback">{{ $errors->first('difference') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
                                     <label for="info"><strong>Тип информации:</strong></label>
                                     {!! Form::select('info_type', \App\Models\Tt::$infoType,null, ['autocomplete'=>'OFF','id'=>'info','placeholder' => '','class' => "form-control ".($errors->has('info_type') ? 'is-invalid' : '')]) !!}
                                     @if($errors->has('info_type'))

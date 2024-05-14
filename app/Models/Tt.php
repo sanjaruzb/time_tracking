@@ -63,6 +63,7 @@ class Tt extends Model
         'status',
         'info_type',
         'arrival_status',
+        'difference',
     ];
 
     public function files()

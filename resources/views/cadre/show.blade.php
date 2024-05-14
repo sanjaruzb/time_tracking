@@ -44,6 +44,11 @@
                                 </tr>
 
                                 <tr>
+                                    <th>Разница</th>
+                                    <td>{{ $tt->difference }}</td>
+                                </tr>
+
+                                <tr>
                                     <th>Файл</th>
                                     <td>
                                         @foreach($tt->files as $f)

@@ -122,64 +122,10 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <strong>С даты авторизации:</strong>
-                                                    {!! Form::date('auth_date_from', request()->get('auth_date_from'), ['placeholder' => 'С даты авторизации','maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <strong>Тип:</strong>
-                                                    {!! Form::select('auth_date_from_type', $types,request()->get('auth_date_from_type'), ['maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <strong>До даты авторизации:</strong>
-                                                    {!! Form::date('auth_date_to', request()->get('auth_date_to'), ['placeholder' => 'До даты авторизации','maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <strong>Тип:</strong>
-                                                    {!! Form::select('auth_date_to_type', $types,request()->get('auth_date_to_type'), ['maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <strong>С время авторизации:</strong>
-                                                    {!! Form::time('auth_time_from', request()->get('auth_time_from'), ['placeholder' => 'С время авторизации','maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <strong>Тип:</strong>
-                                                    {!! Form::select('auth_time_from_type', $types,request()->get('auth_time_from_type'), ['maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <strong>До время авторизации:</strong>
-                                                    {!! Form::time('auth_time_to', request()->get('auth_time_to'), ['placeholder' => 'До время авторизации','maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <strong>Тип:</strong>
-                                                    {!! Form::select('auth_time_to_type', $types,request()->get('auth_time_to_type'), ['maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
-                                                    <strong>вход/выход:</strong>
-                                                    {!! Form::select('track', \App\Helpers\TrackHelper::$tracks,request()->get('track'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                    <strong>Дата авторизации:</strong>
+                                                    {!! Form::date('auth_date', request()->get('auth_date'), ['placeholder' => 'Ф.И.О','maxlength'=> 100,'class' => 'form-control']) !!}
                                                 </div>
                                             </div>
 
@@ -194,6 +140,27 @@
                                                 <div class="form-group">
                                                     <strong>Статус прибытия:</strong>
                                                     {!! Form::select('arrival_status', \App\Models\Tt::$arrival_statuses,request()->get('status'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>вход/выход:</strong>
+                                                    {!! Form::select('track', \App\Helpers\TrackHelper::$tracks,request()->get('track'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>цех/отдел:</strong>
+                                                    {!! Form::select('department_id', $departments, request()->get('department_id'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>Должность:</strong>
+                                                    {!! Form::select('position_id', $positions, request()->get('position_id'), ['placeholder' => '','class' => 'form-control']) !!}
                                                 </div>
                                             </div>
                                         </div>

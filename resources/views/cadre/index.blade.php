@@ -122,14 +122,6 @@
                                                 </div>
                                             </div>
 
-
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>вход/выход:</strong>
-                                                    {!! Form::select('track', \App\Helpers\TrackHelper::$tracks,request()->get('track'), ['placeholder' => '','class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <strong>Статус:</strong>
@@ -141,6 +133,27 @@
                                                 <div class="form-group">
                                                     <strong>Статус прибытия:</strong>
                                                     {!! Form::select('arrival_status', \App\Models\Tt::$arrival_statuses,request()->get('status'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>вход/выход:</strong>
+                                                    {!! Form::select('track', \App\Helpers\TrackHelper::$tracks,request()->get('track'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>цех/отдел:</strong>
+                                                    {!! Form::select('department_id', $departments, request()->get('department_id'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>Должность:</strong>
+                                                    {!! Form::select('position_id', $positions, request()->get('position_id'), ['placeholder' => '','class' => 'form-control']) !!}
                                                 </div>
                                             </div>
                                         </div>
