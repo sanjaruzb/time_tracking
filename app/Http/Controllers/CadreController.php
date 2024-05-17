@@ -171,6 +171,16 @@ class CadreController extends Controller
             'users.position_id as position_id',
             'users.department_id as department_id',
             'users.number as number',
+            'day1_1 as day1_1',
+            'day1_2 as day1_2',
+            'day2_1 as day2_1',
+            'day2_2 as day2_2',
+            'day3_1 as day3_1',
+            'day3_2 as day3_2',
+            'day4_1 as day4_1',
+            'day4_2 as day4_2',
+            'day5_1 as day5_1',
+            'day5_2 as day5_2',
         )
             ->filter($request->only('firstname','lastname','number','fio','date_entry','department_id','position_id','status'))
             ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
@@ -190,6 +200,14 @@ class CadreController extends Controller
             'mon' => $mon,
             'positions' => $positions,
             'departments' => $departments,
+            'statuses' => [
+                1 => 'badge badge-danger',
+                -1 => 'badge badge-danger',
+                2 => 'badge badge-success',
+                -2 => 'badge badge-success',
+                3 => 'badge badge-warning',
+                -3 => 'badge badge-warning',
+            ]
         ]);
     }
 
