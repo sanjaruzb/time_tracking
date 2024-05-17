@@ -34,12 +34,16 @@
                                     цех/отдел
                                 </th>
                                 @foreach($days as $d)
-                                    <th style="writing-mode: vertical-lr; text-orientation: revert; {{$d['style']}}">{{$d['day']}}</th>
+                                    <th style="{{$d['style']}}">{{substr($d['day'], -5)}}</th>
                                 @endforeach
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($employees as $employee)
+                                @php
+                                    $temp = $employee->month_tt($mon);
+                                    $weekly = 0;
+                                @endphp
                                 <tr>
                                     <td style="{{$employee->position ? "" : "background-color: rgb(237 202 31 / 30%);" }}">
                                         {{ $employee->fio }}
@@ -50,24 +54,40 @@
                                             <br>{{ $employee->department->name  }}
                                         @endif
                                     </td>
-                                    @php($temp = $employee->month_tt($mon))
-                                    @php($statuses = [
-                                        1 => 'badge badge-danger',
-                                        -1 => 'badge badge-danger',
-                                        2 => 'badge badge-success',
-                                        -2 => 'badge badge-success',
-                                        3 => 'badge badge-warning',
-                                        -3 => 'badge badge-warning',
-                                    ])
                                     @foreach($days as $d)
-                                        <td style="writing-mode: vertical-lr; text-orientation: revert; {{$d['style']}}">
+                                        <td>
                                             @if(isset($temp[$d['day']][\App\Models\Tt::$kirish]))
-                                            <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status]}}"><i class="far fa-clock"></i>{{ $temp[$d['day']][\App\Models\Tt::$kirish]->auth_time ?: 'kemagan'}}</small>
+                                            <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status]}}">{{ $temp[$d['day']][\App\Models\Tt::$kirish]->auth_time ?: 'kemagan'}}</small>
                                             @endif
                                             <br>
                                             @if(isset($temp[$d['day']][\App\Models\Tt::$chiqish]))
-                                                <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status]}}"><i class="far fa-clock"></i>{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->auth_time ?: 'ketmagan' }}</small>
+                                                <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status]}}">{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->auth_time ?: 'ketmagan' }}</small>
                                             @endif
+                                            @php
+                                                $today = date('w', strtotime($d['day']));
+                                                if(isset($temp[$d['day']][\App\Models\Tt::$kirish]) and isset($temp[$d['day']][\App\Models\Tt::$chiqish]) and $temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status != 1 and $temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status != -1){
+                                                    $k = "day" . $today . '_2';
+                                                    $ch = "day" . $today . '_1';
+                                                    $t_soat = (int)$employee->$k - (int)$employee->$ch;
+                                                    if($t_soat < 0)
+                                                        $t_soat += 12;
+                                                    $weekly += $t_soat;
+                                                    $weekly += $temp[$d['day']][\App\Models\Tt::$kirish]->difference;
+                                                    $weekly += $temp[$d['day']][\App\Models\Tt::$chiqish]->difference;
+
+                                                    if($today == 6 or $today == 0){
+                                                        $t = floor(strtotime('1970-01-01 ' . $temp[$d['day']][\App\Models\Tt::$chiqish]->auth_time) / 3600) - ceil(strtotime('1970-01-01 ' . $temp[$d['day']][\App\Models\Tt::$kirish]->auth_time) / 3600);
+
+                                                        $weekly += $t;
+                                                    }
+                                                }
+                                            @endphp
+                                            @php
+                                                if($today == 0){
+                                                    echo '<small class="badge bg-primary"><i class="far fa-clock"></i>' . $weekly . '<small>';
+                                                    $weekly = 0;
+                                                }
+                                            @endphp
                                         </td>
                                     @endforeach
                                 </tr>
