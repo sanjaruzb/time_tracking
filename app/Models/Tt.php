@@ -39,6 +39,7 @@ class Tt extends Model
         -1=> 'ketmagan',
         -2=> 'vaqtida ketgan',
         -3=> 'erta ketgan',
+        -4=> "qo'shimcha",
     ];
 
     static $infoType = [

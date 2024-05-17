@@ -101,6 +101,16 @@ class TtController extends Controller
                             'auth_time' => $a[9],
                             'arrival_status' => strtotime('1970-01-01 ' . $a[9]) < strtotime('1970-01-01 ' . ($weekend_k->come." ".$weekend_k->come_time) ?: '00:00:00') ? 3 : 2
                         ]);
+                    }else if(empty($weekend_k) and strlen($a[9]) > 7){
+                        Tt::updateOrCreate([
+                            'number' => $a[1],
+                            'auth_date' => $a[6],
+                            'track' => Tt::$kirish,
+                        ], [
+                            'name' => $a[2],
+                            'auth_time' => $a[9],
+                            'arrival_status' => -4
+                        ]);
                     }
 
                     $weekend_c = Weekend::where('left',$a[6])->where('user_id',$temp->id)->where('status',1)->first();
@@ -113,6 +123,16 @@ class TtController extends Controller
                             'name' => $a[2],
                             'auth_time' => $a[10],
                             'arrival_status' => strtotime($a[6].' '.$a[10]) < strtotime($weekend_c->left." ".$weekend_c->left_time) ? -3 : -2
+                        ]);
+                    } else if(empty($weekend_c) and strlen($a[10]) > 7){
+                        Tt::updateOrCreate([
+                            'number' => $a[1],
+                            'auth_date' => $a[6],
+                            'track' => Tt::$chiqish,
+                        ], [
+                            'name' => $a[2],
+                            'auth_time' => $a[10],
+                            'arrival_status' => -4
                         ]);
                     }
                 }else{
