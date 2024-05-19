@@ -45,11 +45,18 @@
                                 <tr >
                                     <td>{{ $tt->number }}</td>
                                     <td>{{ $tt->name }}</td>
-                                    <td><small class="badge <?php
-                                        if ($tt->arrival_status == 1 or $tt->arrival_status == -1) echo "badge-danger";
-                                        if ($tt->arrival_status == 2 or $tt->arrival_status == -2) echo "badge-success";
-                                        if ($tt->arrival_status == 3 or $tt->arrival_status == -3) echo "badge-warning";
-                                    ?>"><i class="far fa-clock"></i>{{ $tt->arrival_status_name() }}</small></td>
+                                    <td>
+                                        <small class="badge
+                                        <?php
+                                            if ($tt->arrival_status == 1 or $tt->arrival_status == -1) echo "badge-danger";
+                                            if ($tt->arrival_status == 2 or $tt->arrival_status == -2) echo "badge-success";
+                                            if ($tt->arrival_status == 3 or $tt->arrival_status == -3) echo "badge-warning";
+                                        ?>">
+                                            <i class="far fa-clock"></i>
+                                            {{ $tt->arrival_status_name() }}
+                                        </small>
+                                        <small role="button" data-toggle="tooltip" data-placement="top" title="{{$tt->info}}" class="badge badge-dark" >{{ $tt->info_type_short()}}</small>
+                                    </td>
                                     <td>{{ $tt->auth_date }}</td>
                                     <td>{{ $tt->auth_time }}</td>
                                     <td>{{ \App\Helpers\TrackHelper::getTrack($tt->track) }}</td>
