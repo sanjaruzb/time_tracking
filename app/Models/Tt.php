@@ -43,9 +43,14 @@ class Tt extends Model
     ];
 
     static $infoType = [
-        0 => 'Otpuska',
-        1 => 'Kamandirochniy',
-        2 => 'Balnichni',
+        9 => 'О - Отпуск',
+        1 => 'К - Командировка',
+        2 => 'Б - Больничный',
+        3 => 'А - Административный',
+        4 => 'БС - Отпуск без содержание',
+        5 => 'БП - Без причины',
+        6 => 'ДП - Доп.работа',
+        7 => 'ДР - Другое',
     ];
     static $kirish = 1;
     static $chiqish = -1;
@@ -66,6 +71,14 @@ class Tt extends Model
         'arrival_status',
         'difference',
     ];
+
+
+    public function info_type_short(){
+        if(isset(self::$infoType[$this->info_type])){
+            return mb_substr(self::$infoType[$this->info_type], 0,2);
+        }
+        return '';
+    }
 
     public function files()
     {

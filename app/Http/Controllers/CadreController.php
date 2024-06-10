@@ -54,7 +54,17 @@ class CadreController extends Controller
                 $query->where('position_id', $request->position_id);
             });
         }
-        $tts = $tts->where('status', 0)->where('auth_date', date('Y-m-d'));
+
+        $week_day = date('w');
+
+        if($week_day == '0')
+            $strtt = strtotime('-2 days');
+        elseif ($week_day == '1')
+            $strtt = strtotime('-3 days');
+        else
+            $strtt = strtotime('-1 day');
+
+        $tts = $tts->where('status', 0)->where('auth_date', date('Y-m-d', $strtt));
         $tts = $tts->paginate(40);
         $positions = Position::latest()->get()->pluck('name','id');
         $departments = Department::latest()->get()->pluck('name','id');
@@ -98,11 +108,25 @@ class CadreController extends Controller
                 ]);
             }
         }
-        Tt::where('id',$id)->update([
-            'info' => $request->info,
-            'difference' => $request->difference,
-            'info_type' => $request->info_type,
-        ]);
+
+        if(in_array($request->info_type, [0,1,2,4])){
+            $temp = Tt::where('id', $id)->first();
+            Tt::where([
+                'auth_date' => $temp->auth_date,
+                'number' => $temp->number,
+            ])->update([
+                'info' => $request->info,
+                'difference' => $request->difference,
+                'info_type' => $request->info_type,
+            ]);
+        }
+        else{
+            Tt::where('id',$id)->update([
+                'info' => $request->info,
+                'difference' => $request->difference,
+                'info_type' => $request->info_type,
+            ]);
+        }
         return redirect()->route('cadre.show', $id)->with('success', 'Информация изменена успешно');
     }
 

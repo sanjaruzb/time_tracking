@@ -55,17 +55,21 @@
                                         @endif
                                     </td>
                                     @foreach($days as $d)
-                                        <td>
+                                        <td style="line-height: 1px;">
                                             @if(isset($temp[$d['day']][\App\Models\Tt::$kirish]))
-                                            <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status]}}">{{ $temp[$d['day']][\App\Models\Tt::$kirish]->auth_time ?: 'kemagan'}}</small>
+                                                @if(!in_array($temp[$d['day']][\App\Models\Tt::$kirish]->info_type * 1, [9,1,2,4]))
+                                                    <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status]}}">{{ $temp[$d['day']][\App\Models\Tt::$kirish]->auth_time ?: 'kemagan'}}</small>
+                                                @endif
+                                                <a href="/cadre/{{$temp[$d['day']][\App\Models\Tt::$kirish]->id}}" data-toggle="tooltip" data-placement="top" title="{{$temp[$d['day']][\App\Models\Tt::$kirish]->info}}" class="badge badge-dark" >{{ $temp[$d['day']][\App\Models\Tt::$kirish]->info_type_short()}}</a>
                                             @endif
                                             <br>
-                                            @if(isset($temp[$d['day']][\App\Models\Tt::$chiqish]))
+                                            @if(isset($temp[$d['day']][\App\Models\Tt::$chiqish]) and !in_array($temp[$d['day']][\App\Models\Tt::$chiqish]->info_type * 1, [9,1,2,4]))
                                                 <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status]}}">{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->auth_time ?: 'ketmagan' }}</small>
+                                                <a href="/cadre/{{$temp[$d['day']][\App\Models\Tt::$chiqish]->id}}" data-toggle="tooltip" data-placement="top" title="{{$temp[$d['day']][\App\Models\Tt::$chiqish]->info}}" class="badge badge-dark" >{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->info_type_short()}}</a>
                                             @endif
                                             @php
                                                 $today = date('w', strtotime($d['day']));
-                                                if(isset($temp[$d['day']][\App\Models\Tt::$kirish]) and isset($temp[$d['day']][\App\Models\Tt::$chiqish]) and $temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status != 1 and $temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status != -1){
+                                                if(isset($temp[$d['day']][\App\Models\Tt::$kirish]) and isset($temp[$d['day']][\App\Models\Tt::$chiqish]) and $temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status != 1 and $temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status != -1 and !in_array($temp[$d['day']][\App\Models\Tt::$chiqish]->info_type * 1, [9,1,2,4])){
                                                     $k = "day" . $today . '_2';
                                                     $ch = "day" . $today . '_1';
                                                     $t_soat = (int)$employee->$k - (int)$employee->$ch;
