@@ -28,7 +28,7 @@
                 @endcan
 
                 @can('cadre-index')
-                    <li class="nav-item {{ Request::is('cadre*') ? 'menu-open' : '' }}">
+                    <li class="nav-item {{ (Request::is('cadre*') or Request::is('bs*')) ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-cog"></i>
                             <p>
@@ -37,6 +37,15 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @can('bs-index')
+                                <li class="nav-item">
+                                    <a href="{{ route('bs.index') }}" class="nav-link {{ Request::is('bs*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>BS</p>
+                                    </a>
+                                </li>
+                            @endcan
+
                             @can('cadre-index')
                                 <li class="nav-item">
                                     <a href="{{ route('cadre.index') }}" class="nav-link {{ Request::is('cadre') ? 'active' : '' }}">
