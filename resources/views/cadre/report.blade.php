@@ -17,6 +17,10 @@
                                 data-target="#employee_filter" style="margin-right: 5px">
                             <span class="fas fa-filter"></span> Фильтр
                         </button>
+
+                        <a href="{{ route("cadre.export") }}" class="btn btn-success btn-sm float-right" style="margin-right: 5px">
+                            <span class="fa fa-file-export"></span> EXCEL
+                        </a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body" style="overflow: auto;">
@@ -58,13 +62,13 @@
                                         <td style="line-height: 1px;">
                                             @if(isset($temp[$d['day']][\App\Models\Tt::$kirish]))
                                                 @if(!in_array($temp[$d['day']][\App\Models\Tt::$kirish]->info_type * 1, [9,1,2,4]))
-                                                    <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status]}}">{{ $temp[$d['day']][\App\Models\Tt::$kirish]->auth_time ?: 'kemagan'}}</small>
+                                                    <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status] ?? ''}}">{{ $temp[$d['day']][\App\Models\Tt::$kirish]->auth_time ?: 'kemagan'}}</small>
                                                 @endif
                                                 <a href="/cadre/{{$temp[$d['day']][\App\Models\Tt::$kirish]->id}}" data-toggle="tooltip" data-placement="top" title="{{$temp[$d['day']][\App\Models\Tt::$kirish]->info}}" class="badge badge-dark" >{{ $temp[$d['day']][\App\Models\Tt::$kirish]->info_type_short()}}</a>
                                             @endif
                                             <br>
                                             @if(isset($temp[$d['day']][\App\Models\Tt::$chiqish]) and !in_array($temp[$d['day']][\App\Models\Tt::$chiqish]->info_type * 1, [9,1,2,4]))
-                                                <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status]}}">{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->auth_time ?: 'ketmagan' }}</small>
+                                                <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status] ?? ''}}">{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->auth_time ?: 'ketmagan' }}</small>
                                                 <a href="/cadre/{{$temp[$d['day']][\App\Models\Tt::$chiqish]->id}}" data-toggle="tooltip" data-placement="top" title="{{$temp[$d['day']][\App\Models\Tt::$chiqish]->info}}" class="badge badge-dark" >{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->info_type_short()}}</a>
                                             @endif
                                             @php

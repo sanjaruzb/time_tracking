@@ -25,10 +25,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('holiday', \App\Http\Controllers\HolidayController::class);
     Route::resource('bugalter', \App\Http\Controllers\BugalterController::class);
     Route::resource('tt', \App\Http\Controllers\TtController::class);
+    Route::resource('bs', \App\Http\Controllers\BsController::class);
 
     Route::get('cadre/report', '\App\Http\Controllers\CadreController@report')->name('cadre.report');
     Route::get('cadre/weekend', '\App\Http\Controllers\CadreController@weekend')->name('cadre.weekend');
     Route::get('cadre/all', '\App\Http\Controllers\CadreController@all')->name('cadre.all');
+    Route::get('cadre/export', '\App\Http\Controllers\CadreController@export')->name('cadre.export');
     Route::resource('cadre', \App\Http\Controllers\CadreController::class);
 
     Route::get('cadre/changestatus/{id}/{status}','\App\Http\Controllers\CadreController@changeStatus')->name('ttChangeStatus');

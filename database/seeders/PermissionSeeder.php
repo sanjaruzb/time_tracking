@@ -126,6 +126,15 @@ class PermissionSeeder extends Seeder
             ['name' => 'weekend-index'],
             ['name' => 'weekend-allow'],
             ['name' => 'weekend-cancel'],
+            // Bs
+            ['name' => 'bs-index'],
+            ['name' => 'bs-filter'],
+            ['name' => 'bs-show'],
+            ['name' => 'bs-create'],
+            ['name' => 'bs-store'],
+            ['name' => 'bs-edit'],
+            ['name' => 'bs-update'],
+            ['name' => 'bs-destroy'],
         ];
         foreach ($permissionList as $item => $value){
             Permission::create($value);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
 use App\Models\Department;
 use App\Models\File;
 use App\Models\Position;
@@ -10,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CadreController extends Controller
 {
@@ -233,6 +235,28 @@ class CadreController extends Controller
                 -3 => 'badge badge-warning',
             ]
         ]);
+    }
+
+    public function export(Request $request)
+    {
+        $data = [
+            [
+                'a' => 'aaa',
+                'b' => 'bbb',
+                'c' => 'bbb',
+                'd' => 'bbb',
+                'e' => 'bbb',
+            ],
+            [
+                'a' => 'aaa',
+                'b' => 'bbb',
+                'c' => 'bbb',
+                'd' => 'bbb',
+                'e' => 'bbb',
+                'k' => 'bbb',
+            ],
+        ];
+        return Excel::download(new ReportExport($data), time().'.xlsx');
     }
 
     public function weekend(Request $request)
