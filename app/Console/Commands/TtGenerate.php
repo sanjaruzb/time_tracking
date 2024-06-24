@@ -29,10 +29,11 @@ class TtGenerate extends Command
     {
 
         $date = $this->argument('date');
-        if (!$date)
+        if (!$date) {
             $last_tt = Tt::latest('id')->first();
-            $date = date('Y-m-d', strtotime($last_tt->auth_date. ' +1 day'));
+            $date = date('Y-m-d', strtotime($last_tt->auth_date . ' +1 day'));
             if (strtotime($date) > strtotime('+15 days')) return 0;
+        }
 
         if(!checkdate(substr($date, 5, 2), substr($date, 8, 2), substr($date, 0, 4))) {
             dump("Noto'g'ri sana kiritilgan");
