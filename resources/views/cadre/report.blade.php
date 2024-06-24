@@ -17,6 +17,10 @@
                                 data-target="#employee_filter" style="margin-right: 5px">
                             <span class="fas fa-filter"></span> Фильтр
                         </button>
+
+                        <a href="{{ route("cadre.export") }}" class="btn btn-success btn-sm float-right" style="margin-right: 5px">
+                            <span class="fa fa-file-export"></span> EXCEL
+                        </a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body" style="overflow: auto;">

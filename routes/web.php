@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('cadre/report', '\App\Http\Controllers\CadreController@report')->name('cadre.report');
     Route::get('cadre/weekend', '\App\Http\Controllers\CadreController@weekend')->name('cadre.weekend');
     Route::get('cadre/all', '\App\Http\Controllers\CadreController@all')->name('cadre.all');
+    Route::get('cadre/export', '\App\Http\Controllers\CadreController@export')->name('cadre.export');
     Route::resource('cadre', \App\Http\Controllers\CadreController::class);
 
     Route::get('cadre/changestatus/{id}/{status}','\App\Http\Controllers\CadreController@changeStatus')->name('ttChangeStatus');
