@@ -30,7 +30,7 @@ class TtGenerate extends Command
 
         $date = $this->argument('date');
         if (!$date) {
-            $last_tt = Tt::latest('id')->first();
+            $last_tt = Tt::latest('auth_date')->first();
             $date = date('Y-m-d', strtotime($last_tt->auth_date . ' +1 day'));
             if (strtotime($date) > strtotime('+15 days')) return 0;
         }
