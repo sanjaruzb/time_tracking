@@ -18,7 +18,14 @@
                             <span class="fas fa-filter"></span> Фильтр
                         </button>
 
-                        <a href="{{ route("cadre.export") }}" class="btn btn-success btn-sm float-right" style="margin-right: 5px">
+                        <a href="{{ route("cadre.export",[
+                            'firstname' => request()->get('firstname'),
+                            'lastname' => request()->get('lastname'),
+                            'number' => request()->get('number'),
+                            'position_id' => request()->get('position_id'),
+                            'department_id' => request()->get('department_id'),
+                            'month' => request()->get('month'),
+                            ]) }}" class="btn btn-success btn-sm float-right" style="margin-right: 5px">
                             <span class="fa fa-file-export"></span> EXCEL
                         </a>
                     </div>
@@ -71,6 +78,7 @@
                                                 <small class="{{$statuses[$temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status] ?? ''}}">{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->auth_time ?: 'ketmagan' }}</small>
                                                 <a href="/cadre/{{$temp[$d['day']][\App\Models\Tt::$chiqish]->id}}" data-toggle="tooltip" data-placement="top" title="{{$temp[$d['day']][\App\Models\Tt::$chiqish]->info}}" class="badge badge-dark" >{{ $temp[$d['day']][\App\Models\Tt::$chiqish]->info_type_short()}}</a>
                                             @endif
+
                                             @php
                                                 $today = date('w', strtotime($d['day']));
                                                 if(isset($temp[$d['day']][\App\Models\Tt::$kirish]) and isset($temp[$d['day']][\App\Models\Tt::$chiqish]) and $temp[$d['day']][\App\Models\Tt::$kirish]->arrival_status != 1 and $temp[$d['day']][\App\Models\Tt::$chiqish]->arrival_status != -1 and !in_array($temp[$d['day']][\App\Models\Tt::$chiqish]->info_type * 1, [9,1,2,4])){
