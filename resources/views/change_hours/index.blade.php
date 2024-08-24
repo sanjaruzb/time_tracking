@@ -106,6 +106,14 @@
                         </tr>
                     @endforeach
                 </tbody>
+
+                <tfooter>
+                    <tr>
+                        <td colspan="12">
+                            {{ $hs->withQueryString()->links()   }}
+                        </td>
+                    </tr>
+                </tfooter>
             </table>
         </div>
     </div>

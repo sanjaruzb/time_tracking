@@ -35,7 +35,7 @@
                 <tbody>
                     @foreach($ws as $w)
                         <tr>
-                            <td>{{$w->user->fio}}<br>{{$w->user->department->name ?? ''}}</td>
+                            <td>{{ $w->user->fio ?? "" }}<br>{{$w->user->department->name ?? ''}}</td>
                             <td><b class="badge bg-warning">{{$w->status_name()}}</b></td>
                             <td>
                                 @foreach($w->files as $f)

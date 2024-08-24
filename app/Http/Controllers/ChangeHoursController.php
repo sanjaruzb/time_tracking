@@ -23,7 +23,7 @@ class ChangeHoursController extends Controller
 
     public function index(){
 
-        $hs = ChangeHours::where('status', 0)->paginate();
+        $hs = ChangeHours::where('status', 0)->paginate(40);
 
         return view('change_hours.index', [
             'hs' => $hs
