@@ -28,7 +28,7 @@
                                     <br/>
                                     @foreach($permission as $value)
                                         <label>{{ Form::checkbox('permission[]', $value->name, in_array($value->id, $rolePermissions) ? true : false, ['class' => '']) }}
-                                            {{ $value->name }}</label>
+                                            {{ $value->info }}</label>
                                         <br/>
                                     @endforeach
                                     @if($errors->has('permission'))

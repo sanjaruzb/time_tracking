@@ -22,7 +22,7 @@
                                 <td>
                                     @if(!empty($rolePermissions))
                                         @foreach($rolePermissions as $v)
-                                            {{ $v->name }}@if(!$loop->last),@endif
+                                            {{ $v->info }}@if(!$loop->last),@endif
                                         @endforeach
                                     @endif
                                 </td>
