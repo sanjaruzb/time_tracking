@@ -72,7 +72,7 @@ class TtController extends Controller
                     'status' => 1,
                 ]);
                 $temp = User::firstOrCreate([
-                    'number' => $a[1],
+                    'number' => strval($a[1]),
                 ],[
                     'firstname' => $names[1] ?? '',
                     'lastname' => $names[0] ?? '',
