@@ -459,7 +459,11 @@ class PermissionSeeder extends Seeder
             ],
         ];
         foreach ($permissionList as $item => $value){
-            Permission::create($value);
+            Permission::updateOrCreate([
+                'name' => $value['name'],
+            ], [
+                'info' => $value['info']
+            ]);
         }
     }
 }
