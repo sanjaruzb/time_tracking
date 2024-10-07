@@ -25,136 +25,136 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'home-profile',
-                'info' => "Профил",
+                'info' => "Профиль",
             ],
             // permission page
             [
                 'name' => 'permission-show',
-                'info' => "Разрешение показывать",
+                'info' => "Разрешение (показать)",
             ],
             [
                 'name' => 'permission-index',
-                'info' => "Разрешение лист",
+                'info' => "Разрешение (лист)",
             ],
             [
                 'name' => 'permission-create',
-                'info' => "Разрешение создать",
+                'info' => "Разрешение (создать)",
             ],
             [
                 'name' => 'permission-store',
-                'info' => "Разрешение сохранить",
+                'info' => "Разрешение (сохранить)",
             ],
             [
                 'name' => 'permission-edit',
-                'info' => "Разрешение редоктировать",
+                'info' => "Разрешение (редоктировать)",
             ],
             [
                 'name' => 'permission-update',
-                'info' => "Разрешение изменить",
+                'info' => "Разрешение (редоктировать 2)",
             ],
             [
                 'name' => 'permission-destroy',
-                'info' => "Разрешение удалит",
+                'info' => "Разрешение (удалит)",
             ],
             // role page
             [
                 'name' => 'role-index',
-                'info' => "Роли лист",
+                'info' => "Роли (лист)",
             ],
             [
                 'name' => 'role-filter',
-                'info' => "Роли фильтр",
+                'info' => "Роли (фильтр)",
             ],
             [
                 'name' => 'role-show',
-                'info' => "Роли показать",
+                'info' => "Роли (показать)",
             ],
             [
                 'name' => 'role-create',
-                'info' => "Роли создать",
+                'info' => "Роли (создать)",
             ],
             [
                 'name' => 'role-store',
-                'info' => "Роли сохранит",
+                'info' => "Роли (сохранит)",
             ],
             [
                 'name' => 'role-edit',
-                'info' => "Роли редоктировать",
+                'info' => "Роли (редоктировать)",
             ],
             [
                 'name' => 'role-update',
-                'info' => "Роли редоктировать 2",
+                'info' => "Роли (редоктировать 2)",
             ],
             [
                 'name' => 'role-destroy',
-                'info' => "Роли удалит",
+                'info' => "Роли (удалит)",
             ],
             // user page
             [
                 'name' => 'user-index',
-                'info' => "Пользователи лист",
+                'info' => "Пользователи (лист)",
             ],
             [
                 'name' => 'user-filter',
-                'info' => "Пользователи фильтр",
+                'info' => "Пользователи (фильтр)",
             ],
             [
                 'name' => 'user-create',
-                'info' => "Пользователи создать",
+                'info' => "Пользователи (создать)",
             ],
             [
                 'name' => 'user-store',
-                'info' => "Пользователи сохранит",
+                'info' => "Пользователи (сохранит)",
             ],
             [
                 'name' => 'user-show',
-                'info' => "Пользователи показать",
+                'info' => "Пользователи (показать)",
             ],
             [
                 'name' => 'user-edit',
-                'info' => "Пользователи редоктировать",
+                'info' => "Пользователи (редоктировать)",
             ],
             [
                 'name' => 'user-update',
-                'info' => "Пользователи редоктировать 2",
+                'info' => "Пользователи (редоктировать 2)",
             ],
             [
                 'name' => 'user-destroy',
-                'info' => "Пользователи удалить",
+                'info' => "Пользователи (удалить)",
             ],
             // employee
             [
                 'name' => 'employee-index',
-                'info' => "Сотрудники лист",
+                'info' => "Сотрудники (лист)",
             ],
             [
                 'name' => 'employee-filter',
-                'info' => "Сотрудники фильтр",
+                'info' => "Сотрудники (фильтр)",
             ],
             [
                 'name' => 'employee-show',
-                'info' => "Сотрудники показать",
+                'info' => "Сотрудники (показать)",
             ],
             [
                 'name' => 'employee-create',
-                'info' => "Сотрудники создать",
+                'info' => "Сотрудники (создать)",
             ],
             [
                 'name' => 'employee-store',
-                'info' => "Сотрудники сохранить",
+                'info' => "Сотрудники (сохранить)",
             ],
             [
 
                 'name' => 'employee-edit',
-                'info' => "Сотрудники редоктировать",
+                'info' => "Сотрудники (редоктировать)",
             ],
             [
                 'name' => 'employee-update',
-                'info' => "Сотрудники редоктировать",
+                'info' => "Сотрудники (редоктировать)",
             ],
             [
                 'name' => 'employee-destroy',
-                'info' => "Сотрудники удалить",
+                'info' => "Сотрудники (удалить)",
             ],
             [
                 'name' => 'employee-change-template',
@@ -162,7 +162,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'employee-change-template-submit',
-                'info' => "Изменение время работы сотрудника (сохранить)",
+                'info' => "Изменение время работы сотрудника по шаблону (сохранить)",
             ],
             [
                 'name' => 'employee-change-individual',
@@ -182,7 +182,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'employee-change-working-hours',
-                'info' => "",
+                'info' => "Изменение время работы сотрудника (П)",
             ],
             // Position
             [
@@ -294,43 +294,43 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'cadre-show',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (показать)",
             ],
             [
                 'name' => 'cadre-create',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (создать)",
             ],
             [
                 'name' => 'cadre-store',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (сохранить)",
             ],
             [
                 'name' => 'cadre-edit',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (редоктировать)",
             ],
             [
                 'name' => 'cadre-update',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (редоктировать 2)",
             ],
             [
                 'name' => 'cadre-destroy',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (удалить)",
             ],
             [
                 'name' => 'cadre-changeStatus',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (изменение статуса)",
             ],
             [
                 'name' => 'cadre-report',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (отчет)",
             ],
             [
                 'name' => 'cadre-weekend',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (выходные)",
             ],
             [
                 'name' => 'cadre-all',
-                'info' => "Страница кадра ()",
+                'info' => "Страница кадра (все)",
             ],
             // Bugalter
             [
@@ -368,61 +368,61 @@ class PermissionSeeder extends Seeder
             // Holiday
             [
                 'name' => 'holiday-index',
-                'info' => "",
+                'info' => "Выходные",
             ],
             [
                 'name' => 'holiday-filter',
-                'info' => "",
+                'info' => "Выходные (фильтр)",
             ],
             [
                 'name' => 'holiday-show',
-                'info' => "",
+                'info' => "Выходные (показать)",
             ],
             [
                 'name' => 'holiday-create',
-                'info' => "",
+                'info' => "Выходные (создать)",
             ],
             [
                 'name' => 'holiday-store',
-                'info' => "",
+                'info' => "Выходные (сохранить)",
             ],
             [
                 'name' => 'holiday-edit',
-                'info' => "",
+                'info' => "Выходные (редоктировать)",
             ],
             [
                 'name' => 'holiday-update',
-                'info' => "",
+                'info' => "Выходные (редоктировать 2)",
             ],
             [
                 'name' => 'holiday-destroy',
-                'info' => "",
+                'info' => "Выходные (удалить)",
             ],
             // Change Hours
             [
                 'name' => 'changehour-index',
-                'info' => "",
+                'info' => "Изменение время работы сотрудника [подтверждение]",
             ],
             [
                 'name' => 'changehour-allow',
-                'info' => "",
+                'info' => "Изменение время работы сотрудника [подтверждение] (пдтвердить)",
             ],
             [
                 'name' => 'changehour-cancel',
-                'info' => "",
+                'info' => "Изменение время работы сотрудника [подтверждение] (отменить)",
             ],
             // Weekend
             [
                 'name' => 'weekend-index',
-                'info' => "",
+                'info' => "Выходные",
             ],
             [
                 'name' => 'weekend-allow',
-                'info' => "",
+                'info' => "Выходные (пдтвердить)",
             ],
             [
                 'name' => 'weekend-cancel',
-                'info' => "",
+                'info' => "Выходные (отменить)",
             ],
             // Bs
             [
