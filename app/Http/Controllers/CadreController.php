@@ -238,6 +238,18 @@ class CadreController extends Controller
         ]);
     }
 
+    public function month_report(Request $request, $month = null)
+    {
+        if($month == null){
+            $month = date('Y-m', strtotime('-1 month'));
+        }
+        $users = User::paginate(15);
+        return view('cadre.month_report', [
+            'users' => $users,
+            'month' => $month
+        ]);
+    }
+
     public function export(Request $request)
     {
         $count = date('t');

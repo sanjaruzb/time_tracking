@@ -142,4 +142,14 @@ class User extends Authenticatable
 
         return $temp;
     }
+
+    public function sababsiz_kechikishlar()
+    {
+        return 0;
+    }
+
+    public function sababsiz_kemaslik()
+    {
+        return 0;
+    }
 }
