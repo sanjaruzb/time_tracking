@@ -9,6 +9,7 @@ use App\Models\Position;
 use App\Models\Tt;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -238,16 +239,27 @@ class CadreController extends Controller
         ]);
     }
 
-    public function month_report(Request $request, $month = null)
+    public function month_report(Request $request)
     {
-        if($month == null){
-            $month = date('Y-m', strtotime('-1 month'));
-        }
-        $users = User::paginate(15);
-        return view('cadre.month_report', [
-            'users' => $users,
-            'month' => $month
-        ]);
+        $month = $request->month ?? date('Y-m', strtotime('-1 month'));
+        $fio = $request->fio;
+        $users = User::with(['tts' => function($query) use ($month) {
+            $query->whereYear('auth_date', date('Y', strtotime($month)))
+                ->whereMonth('auth_date', date('m', strtotime($month)));
+        }])
+            ->when($fio, function($query) use ($fio) {
+                $query->where('fio', 'LIKE', "%{$fio}%");
+            })
+            ->paginate(20)
+            ->through(function($user) {
+                return [
+                    'fio' => $user->fio,
+                    'status_count' => $user->tts->groupBy('arrival_status')->map(function($group) {
+                        return $group->count();
+                    })->toArray(),
+                ];
+            });
+        return view('cadre.month_report', compact('users'));
     }
 
     public function export(Request $request)

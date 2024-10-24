@@ -152,4 +152,14 @@ class User extends Authenticatable
     {
         return 0;
     }
+
+    public function report()
+    {
+
+    }
+
+    public function tts()
+    {
+        return $this->hasMany(Tt::class, 'number', 'number');
+    }
 }

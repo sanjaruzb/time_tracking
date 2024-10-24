@@ -122,4 +122,6 @@ class Tt extends Model
     public function arrival_status_name(){
         return self::$arrival_statuses[$this->arrival_status];
     }
+
+
 }

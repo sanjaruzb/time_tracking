@@ -13,39 +13,47 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Управление кадрами</h3>
+
+                        <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal"
+                                data-target="#users_filter" style="margin-right: 5px">
+                            <span class="fas fa-filter"></span> Фильтр
+                        </button>
                     </div>
                     <div class="card-body">
                         <table id="dataTable" class="table table-bordered table-striped dataTable dtr-inline table-responsive-lg" user="grid" aria-describedby="dataTable_info">
                             <thead>
                             <tr>
-                                <th>#</th>
                                 <th>ФИО</th>
-                                <th>Опоздании [без причины]</th>
+                                <th>Статус</th>
+                                {{--<th>Опоздании [без причины]</th>
                                 <th>Отсутствие [без причины]</th>
                                 <th>Опоздании [причины]</th>
-                                <th>Отсутствие [причины]</th>
+                                <th>Отсутствие [причины]</th>--}}
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $u)
+                            @foreach($users as $user)
                                 <tr>
-                                    <td>1</td>
-                                    <td>{{$u->firstname}} {{$u->lastname}}</td>
-                                    <td>{{$u->sababsiz_kechikishlar($month)}}</td>
-                                    <td>{{$u->sababsiz_kemaslik($month)}}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $user['fio'] ?? "" }} </td>
+                                    <td>
+                                        <ul>
+                                            @foreach($user['status_count'] as $status => $count)
+                                                <li>{{ \App\Models\Tt::$arrival_statuses[$status] ?? "" }} - {{ $count }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
                             <tfooter>
                                 <tr>
                                     <td colspan="12">
-                                        {{ $users->withQueryString()->links()   }}
+                                        {{ $users->withQueryString()->links() }}
                                     </td>
                                 </tr>
                             </tfooter>
                         </table>
+
                         <div class="modal fade" id="users_filter">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -60,52 +68,18 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
-                                                    <strong>Номер:</strong>
-                                                    {!! Form::text('number', request()->get('number'), ['placeholder' => 'Номер','maxlength'=> 100,'class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
                                                     <strong>Ф.И.О:</strong>
-                                                    {!! Form::text('name', request()->get('name'), ['placeholder' => 'Ф.И.О','maxlength'=> 100,'class' => 'form-control']) !!}
+                                                    {!! Form::text('fio', request()->get('fio'), ['placeholder' => 'Ф.И.О','maxlength'=> 100,'class' => 'form-control']) !!}
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
-                                                    <strong>Статус:</strong>
-                                                    {!! Form::select('status', \App\Models\Tt::$statuses,request()->get('status'), ['placeholder' => '','class' => 'form-control']) !!}
+                                                    <strong>Месяц:(2024-10)</strong>
+                                                    {!! Form::text('month', request()->get('month'), ['placeholder' => '2024-10','maxlength'=> 100,'class' => 'form-control']) !!}
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Статус прибытия:</strong>
-                                                    {!! Form::select('arrival_status', \App\Models\Tt::$arrival_statuses,request()->get('status'), ['placeholder' => '','class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>вход/выход:</strong>
-                                                    {!! Form::select('track', \App\Helpers\TrackHelper::$tracks,request()->get('track'), ['placeholder' => '','class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>цех/отдел:</strong>
-                                                    {!! Form::select('department_id', $departments, request()->get('department_id'), ['placeholder' => '','class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Должность:</strong>
-                                                    {!! Form::select('position_id', $positions, request()->get('position_id'), ['placeholder' => '','class' => 'form-control']) !!}
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
@@ -117,7 +91,7 @@
                                 <!-- /.modal-content -->
                             </div>
                             <!-- /.modal-dialog -->
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </div>

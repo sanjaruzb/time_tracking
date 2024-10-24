@@ -81,6 +81,15 @@
                                     </a>
                                 </li>
                             @endcan
+
+                            {{--@can('cadre-month')--}}
+                                <li class="nav-item">
+                                    <a href="{{ route('cadre.month') }}" class="nav-link {{ Request::is('cadre/month') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Month</p>
+                                    </a>
+                                </li>
+                            {{--@endcan--}}
                         </ul>
                     </li>
                 @endcan
